@@ -1,0 +1,6 @@
+.DS_Store
+*.cache
+
+/tests/wp-test-core
+/tests/wp-test-lib
+/vendor/

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     version="2.0">
+    <channel>
+        <title><![CDATA[조선일보]]></title>
+        <link>https://www.chosun.com</link>
+        <atom:link href="https://www.chosun.com/arc/outboundfeeds/rss/category/medical/"
+                   rel="self"
+                   type="application/rss+xml"/>
+        <description><![CDATA[1등 인터넷뉴스 조선닷컴 | 전체기사]]></description>
+        <lastBuildDate>Wed, 24 Dec 2025 16:22:18 +0000</lastBuildDate>
+        <language>ko</language>
+        <category>news</category>
+        <ttl>1</ttl>
+        <sy:updatePeriod>hourly</sy:updatePeriod>
+        <sy:updateFrequency>1</sy:updateFrequency>
+        <image>
+            <url>https://image.chosun.com/cs_logo.png</url>
+            <title>조선일보</title>
+            <link>https://www.chosun.com</link>
+        </image>
+        <item>
+            <title><![CDATA[매일 16㎞ 자전거, 주말엔 테니스… 92세 괴력의 비결]]></title>
+            <link>https://www.chosun.com/medical/2025/10/17/4X64VQPLOVD4PJS6GGKO4VKWPY/</link>
+            <guid isPermaLink="true">https://www.chosun.com/medical/2025/10/17/4X64VQPLOVD4PJS6GGKO4VKWPY/</guid>
+            <dc:creator><![CDATA[김포=이태동 기자]]></dc:creator>
+            <description>TestDescription</description>
+            <pubDate>Thu, 16 Oct 2025 18:00:00 +0000</pubDate>
+            <content:encoded><![CDATA[<p><style>.pre_wrap{ display: flex; flex-wrap: wrap; } .pre_img {  width: 100%; } .pre_img { display: block !important; } .pre_img_mobile { display: none !important;} @media only screen and (max-width: 689px) { .pre_img_pc {display: none !important;} .pre_img_mobile { display: block !important;} } </style>
+<div class="pre_wrap">
+	<img src="https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/KR5D4OX3OJAQFNTRRSHOJ6OKPQ.png" alt="" class="pre_img pre_img_pc">
+	<img  src="https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/ZIP5KEV4AJBVZHZGHFB23PZQIY.png" alt="" class="pre_img pre_img_mobile">
+</div>
+<p style=" font-family: NotoSansKR-Regular, sans-serif; font-weight: 400; color: #707070;padding-top: 8px;  font-size: 14px; margin: 0; text-align: left; display: block; word-break: keep-all;">사진=조인원 기자, 그래픽=조선디자인랩 김영재</p></p><p><style>
+#ulst03{ width: 100%; max-width: 616px; margin: 0 auto; padding: 18px 23px 20px; border-radius: 8px; background: #f7f7f7;}
+#ulst03 h5{text-align: left;color: #FE5454; font-size: 18px; font-family: "NotoSansKR-Bold"; font-weight: 700; line-height: normal; margin: 0; margin-bottom: 11px; display: block; }
+#ulst03 ul{ padding: 0; list-style-type: none; padding-inline-start: 0; margin: 0;}
+#ulst03 ul li{ list-style-type: none;text-align: left;position: relative; padding: 0; font-size: 16px; font-weight: 400; line-height: 24px; margin-bottom: 10px; letter-spacing: -0.18px; color: #000;}
+#ulst03 ul li:before{ display: none;}
+#ulst03 ul li a.ulst02-link{ text-align: left;position: relative; padding: 0; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.18px; color: #000;    text-underline-position: under;}
+#ulst03 ul li.ulst02-bold{font-weight: 600;}
+#ulst03 ul li.ulst02-bold a{font-weight: 600;}
+#ulst03 ul li.ulst02:hover a{ color: #707070;}
+#ulst03 ul li:last-child{ margin-bottom: 0;}
+</style>
+<div id="ulst03">
+	<h5>‘수퍼스트롱' 기사 보기</h5>
+	<ul>
+		<li class="ulst02-bold">① 매일 16㎞ 자전거, 주말엔 테니스… 92세 괴력의 비결</li>
+		<li class="ulst02"><a class="ulst02-link" href="https://www.chosun.com/medical/2025/10/14/V3QMLWX74FFFDMSJOK5WHZEULY/">② 98세에 아찔한 전복 사고… 100세에도 골프 치며 사는 비결</a></li>
+		<li class="ulst02"><a class="ulst02-link" href="https://www.chosun.com/medical/2025/10/31/UIBBSP6Z2FEO5LK4JZ6YRMDFLU/">③ 72세에 달리기 입문… 춘마 최고령 완주 81세 최동욱씨</a></li>
+		<li class="ulst02"><a class="ulst02-link" href="https://www.chosun.com/medical/2025/10/31/NYEYY7MAJJHKJGREMQUK4Y3RGI/">④ 70에 금연한 의사, 90에도 승마… 낮잠 시간 보니</a></li>
+		<li class="ulst02"><a class="ulst02-link" href="https://www.chosun.com/medical/2025/11/21/3POFXITZIRBXNHNTL42GWJCIXM/">⑤ 척추협착증에 75세 때 시작, 보디빌딩 대회 2위 할머니</a></li>
+	</ul>
+</div></p>]]></content:encoded>
+            <media:content
+                    url="https://www.chosun.com/resizer/v2/NW3WSOOODFF6BOOVDYXIFXLYYM.gif?auth=13418ceaadbe7347544509b8f86a21105748852ed42ae15565f699bce205415f&amp;smart=true&amp;width=1200&amp;height=900"
+                    type="image/jpeg" height="900" width="1200">
+                <media:description type="plain"><![CDATA[TEST_DESCRIPTION]]></media:description>
+            </media:content>
+        </item>
+        <item>
+            <title><![CDATA[방치하면 사망률 50%... 90세도 치료 가능한 대동맥 판막 최신 치료법 [이러면 낫는다] ]]></title>
+            <link>https://www.chosun.com/medical/2025/12/23/DC5NF5PVDRAC3DH4JHWZEN5UVY/</link>
+            <guid isPermaLink="true">https://www.chosun.com/medical/2025/12/23/DC5NF5PVDRAC3DH4JHWZEN5UVY/</guid>
+            <dc:creator><![CDATA[전현석 기자]]></dc:creator>
+            <description></description>
+            <pubDate>Tue, 23 Dec 2025 08:06:07 +0000</pubDate>
+            <content:encoded>
+                <![CDATA[<iframe width="560" height="315" src="https://www.youtube.com/embed/5tqu7W1nr-c?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="숨 차고 가슴 통증, 단순 노화가 아닙니다! 방치하면 2년 이내 사망률 50%, 대동맥판막질환 위험 증상ㅣ신상훈·김충기 이대서울병원 순환기내과 [이러면 낫는다ㅣ대동맥판막협착증]"></iframe><p>제때 치료하지 않으면 환자 절반이 2~3년 내 사망에 이를 수 있는 치명적인 질병이 있다. ‘대동맥 판막 협착증’이다. 75세 이상 고령층 10명 중 3명꼴로 발생할 만큼 흔하지만, 많은 이가 관련 증상을 노화 현상으로 생각해 치료 시기를 놓치고 있다. 조선일보 의학·건강 유튜브 ‘김철중의 이러면 낫는다’는 이대서울병원 순환기내과 신상훈·김충기 교수와 함께 대동맥 판막 협착증에 대해 알아봤다.</p>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[[김철중의 생로병사] 스마트폰 얕보지 마세요, 손에 쥔 ‘최초의 병원’입니다]]></title>
+            <link>https://www.chosun.com/medical/2025/12/23/DPCDHHN36ZBAXKW4SIOXYPPHVE/</link>
+            <guid isPermaLink="true">https://www.chosun.com/medical/2025/12/23/DPCDHHN36ZBAXKW4SIOXYPPHVE/</guid>
+            <dc:creator><![CDATA[김철중 의학전문기자]]></dc:creator>
+            <description></description>
+            <pubDate>Tue, 23 Dec 2025 14:34:00 +0000</pubDate>
+            <content:encoded>
+                <![CDATA[<p><div data-player-id="4fc5e1c9-d7ce-420a-a7b0-139e4c663e02"><script src="//cdn.flowplayer.com/players/a4591207-db67-4f93-83a7-c19387f71f0c/native/flowplayer.async.js">{"src":"11c21bad-d21a-4c7d-acfd-408ebbe56c20","plugins":["audio"]}</script></div></p><p>고혈압 환자인 중견 회사 임원 김모(58)씨는 스마트폰 데이터를 보고 혈압약 복용 패턴을 바꿨다. 그는 저녁 회식 자리가 많아 음주가 잦았다. 술을 먹으면 혈압이 오르는 경향이 있어서, 야간 고혈압이 걱정돼 자기 전에 혈압약을 먹었다. 그러다 자신의 혈압 변화를 알고 싶어 손가락에 끼는 ‘반지형 혈압계’를 써봤다. 이 혈압계는 손가락의 혈류 변화를 감지하여 혈압을 측정하고, 거의 실시간으로 스마트폰에 측정 혈압을 보여준다.</p>]]></content:encoded>
+            <media:content
+                    url="https://www.chosun.com/resizer/v2/7GZHAP67YVF3LH6LO7JHJNMK3A.png?auth=73157c23125119b3ca86081c8dbea2928fb57c1f6bec397903e27d830141cabc&amp;smart=true&amp;width=500&amp;height=500"
+                    type="image/png" height="500" width="500"/>
+        </item>
+        <item>
+            <title><![CDATA[암 앞에서 무너지지 않기 위해, 가족은 ‘이것’을 먼저 돌봐야 합니다 [아미랑]]]></title>
+            <link>https://www.chosun.com/medical/healthchosun/2025/12/24/MIYTGZRQGE4DIMJQHAZDSZBYME/</link>
+            <guid isPermaLink="true">
+                https://www.chosun.com/medical/healthchosun/2025/12/24/MIYTGZRQGE4DIMJQHAZDSZBYME/
+            </guid>
+            <dc:creator><![CDATA[최수정 인천권역암생존자통합지지센터장(가천대길병원 가정의학과 교수)]]></dc:creator>
+            <description>
+                <![CDATA[얼마 전, 가까운 친구의 가족이 암 진단을 받고 치료를 시작했다는 소식을 들었다. 비교적 젊은 나이였기에, 그 소식은 갑작스럽고 묵직했다. 이론적으로는 늘 알고 있다. 남에게 일어나는 일은 언제든 나에게도 일어날 수 있다는 사실을. 하지만 막상 그 ‘언제든’이 현실이 되어 내 주변을 덮칠 때면, 머릿속은 하얘지고 눈앞은 캄캄해진다. 사랑하는 가족의 암 선고]]></description>
+            <pubDate>Wed, 24 Dec 2025 02:04:26 +0000</pubDate>
+            <content:encoded>
+                <![CDATA[<img src="https://www.chosun.com/resizer/v2/MI3DIOLFGJRGIZDDG42TGZTDMM.jpg?auth=d2da7a7160deef7728ab3f8412343c7383fd646b0d33f2b0dc360570a667d44e&smart=true&width=600&height=400" alt="사진=클립아트코리아" height="400" width="600"/><p><div>얼마 전, 가까운 친구의 가족이 암 진단을 받고 치료를 시작했다는 소식을 들었다. 비교적 젊은 나이였기에, 그 소식은 갑작스럽고 묵직했다. 이론적으로는 늘 알고 있다. 남에게 일어나는 일은 언제든 나에게도 일어날 수 있다는 사실을. 하지만 막상 그 ‘언제든’이 현실이 되어 내 주변을 덮칠 때면, 머릿속은 하얘지고 눈앞은 캄캄해진다.</p>]]></content:encoded>
+            <media:content
+                    url="https://www.chosun.com/resizer/v2/MI3DIOLFGJRGIZDDG42TGZTDMM.jpg?auth=d2da7a7160deef7728ab3f8412343c7383fd646b0d33f2b0dc360570a667d44e&amp;smart=true&amp;width=600&amp;height=400"
+                    type="image/jpeg" height="400" width="600">
+                <media:description type="plain"><![CDATA[사진=클립아트코리아]]></media:description>
+            </media:content>
+        </item>
+        <item>
+            <title><![CDATA[“문턱 왜 이래” “보도 블록 때문에”...NO! 잦은 휘청거림, 당신의 ‘근손실’이 원인]]></title>
+            <link>https://www.chosun.com/medical/2025/12/24/7LDYFZOIJVBDNFAEAFOLR2MVFE/</link>
+            <guid isPermaLink="true">https://www.chosun.com/medical/2025/12/24/7LDYFZOIJVBDNFAEAFOLR2MVFE/</guid>
+            <dc:creator><![CDATA[김형미]]></dc:creator>
+            <description></description>
+            <pubDate>Tue, 23 Dec 2025 18:00:00 +0000</pubDate>
+            <content:encoded><![CDATA[<p><style>.pre_wrap{ display: flex; flex-wrap: wrap; } .pre_img {  width: 100%; } .pre_img { display: block !important; } .pre_img_mobile { display: none !important;} @media only screen and (max-width: 689px) { .pre_img_pc {display: none !important;} .pre_img_mobile { display: block !important;} } </style>
+<div class="pre_wrap">
+	<img src="https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/AH6CLSHWOFASZDWE4NBXU2GX6Y.png" alt="" class="pre_img pre_img_pc">
+	<img  src="https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/BRCTPFJCBFB75OD454O5E3ZQVQ.png" alt="" class="pre_img pre_img_mobile">
+</div>
+<p style=" font-family: NotoSansKR-Regular, sans-serif; font-weight: 400; color: #707070;padding-top: 8px;  font-size: 14px; margin: 0; text-align: left; display: block; word-break: keep-all;">국산오리스테이크 /필자 제공</p></p><p>의학적 관점에서 말하는 ‘저속 노화(Slow-aging)’는 단순히 수명을 늘리는 문제가 아닙니다. 핵심은 <mark class="hl_tblue">얼마나 오래 ‘기능적으로’ 살 수 있느냐</mark>에 있습니다. 그리고 그 기능의 최전선에는 단연 근육이 있습니다.</p>]]></content:encoded>
+            <media:content
+                    url="https://www.chosun.com/resizer/v2/U4E76QK76ZEV3GZRRXGHSMTFPY.gif?auth=543d9c6887378c5971c5c9c50144e2a88140c556a40c7751e27d01918f4b194a&amp;smart=true&amp;width=800&amp;height=450"
+                    type="image/jpeg" height="450" width="800"/>
+        </item>
+    </channel>
+</rss>
