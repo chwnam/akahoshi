@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  Akahoshi
  * Plugin URI:   https://github.com/chwnam/akahoshi
- * Version:      1.0.0
+ * Version:      1.0.1
  * Description:  내 블로그를 위한 뉴스 스크랩 플러그인
  * Author:       chwnam
  * Author URI:   https://github.com/chwnam
@@ -18,6 +18,6 @@ if (!defined('ABSPATH')) {
 }
 
 const AKAHOSHI_MAIN    = __FILE__;
-const AKAHOSHI_VERSION = '1.0.0';
+const AKAHOSHI_VERSION = '1.0.1';
 
 Chwnam\Akahoshi\getAkahoshi();

@@ -54,7 +54,8 @@ class Notifier
             "\r\n" .
             "'%s' 영역의 새 기사 %d개가 수집되었습니다.\r\n" .
             "자세한 내용은 블로그 {%s}에서 확인하세요.\r\n" .
-            "\r\n%s\r\n" .
+            "\r\n수집된 기사 항목:\r\n" .
+            "%s\r\n\r\n\r\n" .
             "- 당신의 Akahoshi 플러그인이 드림.",
             get_bloginfo('name'),
             $this->scrapTitle,
