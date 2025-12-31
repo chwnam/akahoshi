@@ -51,7 +51,7 @@ class Admin
         add_settings_section(
             'akahoshi-nihongo',
             '일본어 스크랩',
-            '__return_empty_string',
+            [FR::class, 'sectionNihongo'],
             'akahoshi'
         );
 
@@ -130,7 +130,7 @@ class Admin
         add_settings_section(
             'akahoshi-health',
             '건강 스크랩',
-            '__return_empty_string',
+            [FR::class, 'sectionHealth'],
             'akahoshi'
         );
 
@@ -208,6 +208,14 @@ class Admin
             '기타',
             '__return_empty_string',
             'akahoshi'
+        );
+
+        add_settings_field(
+            'akahoshi-misc-css',
+            'CSS 코드 조각',
+            [FR::class, 'cssCodeSnippet'],
+            'akahoshi',
+            'akahoshi-misc',
         );
 
         add_settings_field(

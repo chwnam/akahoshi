@@ -61,7 +61,7 @@ class Notifier
             $this->scrapTitle,
             count($this->items),
             $this->archiveUrl,
-            implode("\r\n", array_map(fn($item) => " \t- $item->title", $this->items))
+            implode("\r\n", array_map(fn($item) => " - $item->title", $this->items))
         );
     }
 }

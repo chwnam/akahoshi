@@ -85,11 +85,5 @@ class Akahoshi
     public function scrap(): void
     {
         (new Scraper())->scrap();
-        // Test email
-        wp_mail(
-            to: get_bloginfo('admin_email'),
-            subject: 'Akahoshi v1.0.1 시험 메일',
-            message: wp_date(get_option('date_format') . ' ' . get_option('time_format')) . '에 실행됨',
-        );
     }
 }
