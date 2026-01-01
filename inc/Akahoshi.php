@@ -17,6 +17,8 @@ class Akahoshi
         add_action('init', [$this, 'init']);
         add_action('akahoshi_scrap', [$this, 'scrap']);
 
+        add_filter('jetpack_photon_skip_for_url', [$this, 'filterJetpackPhoton'], 10, 4);
+
         $this->admin = new Admin();
     }
 
@@ -32,6 +34,23 @@ class Akahoshi
         wp_unschedule_hook('akahoshi_scrap');
     }
 
+    /**
+     * Disable Jetpack image cache for chosun.com external images
+     *
+     * @param bool   $value
+     * @param string $url
+     *
+     * @return bool
+     */
+    public function filterJetpackPhoton(bool $value, string $url): bool
+    {
+        if (str_starts_with($url, 'https://www.chosun.com/')) {
+            $value = true;
+        }
+
+        return $value;
+    }
+
     public function init(): void
     {
         register_setting(
@@ -40,7 +59,7 @@ class Akahoshi
             [
                 'type'              => 'array',
                 'group'             => 'akahoshi_settings',
-                'sanitize_callback' => [$this, 'sanitizeSettings'],
+                'sanitize_callback' => [__CLASS__, 'sanitizeSettings'],
                 'show_in_rest'      => false,
                 'default'           => [
                     'nihongo' => [
@@ -62,7 +81,12 @@ class Akahoshi
         );
     }
 
-    public function sanitizeSettings(array $value): array
+    public function scrap(): void
+    {
+        (new Scraper())->scrap();
+    }
+
+    public static function sanitizeSettings(array $value): array
     {
         return [
             'nihongo' => [
@@ -80,10 +104,5 @@ class Akahoshi
                 'notify'   => sanitize_email($value['health']['notify'] ?? ''),
             ],
         ];
-    }
-
-    public function scrap(): void
-    {
-        (new Scraper())->scrap();
     }
 }

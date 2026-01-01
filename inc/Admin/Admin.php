@@ -22,8 +22,8 @@ class Admin
     public function addSettingsMenu(): void
     {
         add_options_page(
-            'Akahoshi',
-            'Akahoshi',
+            '아카호시 설정 페이지',
+            '아카호시',
             'manage_options',
             'akahoshi',
             [$this, 'outputSettingsPage'],

@@ -43,9 +43,12 @@ class PostInserter
                 [
                     'post_date'    => convertPubDate($item->datetime),
                     'post_title'   => $item->title,
-                    'post_content' => wp_kses_post(removeCommonLocalStyle($item->content)) . PHP_EOL .
-                        '<div class="akahoshi-guid"><p>기사 원문 링크: <a href="' . esc_url($item->guid) .
-                        '" target="blank" rel="external nofollow noreferrer">' . esc_html($item->guid) .
+                    'post_content' => wp_kses_post(removeCommonLocalStyle($item->content)) .
+                        PHP_EOL .
+                        '<div class="akahoshi-guid"><p>' .
+                        '<a href="' . esc_url($item->guid) .
+                        '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
+                        '원본 기사 보기' .
                         '</a></div>',
                     'post_name'    => $slug,
                     'post_type'    => $target->postType,

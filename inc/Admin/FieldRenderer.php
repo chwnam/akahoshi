@@ -3,6 +3,7 @@
 namespace Chwnam\Akahoshi\Admin;
 
 use function Chwnam\Akahoshi\getRssUrl;
+use function Chwnam\Akahoshi\getSectionUrl;
 
 class FieldRenderer
 {
@@ -63,23 +64,27 @@ class FieldRenderer
 
     public static function sectionNihongo(): void
     {
-        echo '<p class="description">RSS 주소는 <a href="' .
-            esc_url(getRssUrl('national')) .
-            '" target="_blank">여기를 눌러</a> 참고하세요</p>';
+        echo '<p class="description">' .
+            '<a href="' . esc_url(getSectionUrl('nihongo')) . '" target="_blank">일본어 섹션</a>' .
+            ' | ' .
+            '<a href="' . esc_url(getRssUrl('national')) . '" target="_blank">RSS 구독</a>' .
+            '</p>';
     }
 
     public static function sectionHealth(): void
     {
-        echo '<p class="description">RSS 주소는 <a href="' .
-            esc_url(getRssUrl('medical')) .
-            '" target="_blank">여기를 눌러</a> 참고하세요</p>';
+        echo '<p class="description">' .
+            '<a href="' . esc_url(getSectionUrl('health')) . '" target="_blank">헬스 조선 섹션</a>' .
+            ' | ' .
+            '<a href="' . esc_url(getRssUrl('medical')) . '" target="_blank">RSS 구독</a>' .
+            '</p>';
     }
 
     public static function cssCodeSnippet(): void
     {
-        echo '<p class="description">조선일보 RSS로 공개하는 기사 본문은 중 HTML은 아래와 같은 공통 CSS 코드를 포함합니다. ' .
-            '테마의 레이아웃이 이미지 때문에 틀어지는 경우, 아래 CSS 코드 조각을 참고하세요</p>';
-        echo '<pre>';
+        echo '<p class="description" > 조선일보 RSS로 공개하는 기사 본문은 중 HTML은 아래와 같은 공통 CSS 코드를 포함합니다 . ' .
+            '테마의 레이아웃이 이미지 때문에 틀어지는 경우, 아래 CSS 코드 조각을 참고하세요 </p > ';
+        echo '<pre > ';
         echo esc_html(<<< PHP_EOT
 <style>
 .pre_wrap {display: flex; flex-wrap: wrap;}
@@ -93,18 +98,18 @@ class FieldRenderer
 </style>
 PHP_EOT
         );
-        echo '</pre>';
+        echo '</pre > ';
     }
 
     public static function miscDoItNow(): void
     {
-        echo '<input id="akahoshi-do-it" type="submit" class="button button-primary" value="지금 바로 스크랩" form="akahoshi-do-it-now" onclick="return confirm(\'정말로 실행하려고?\')">';
-        echo '<p class="description">지금 바로 스크랩을 실행해 봅니다.</p>';
+        echo '<input id = "akahoshi-do-it" type = "submit" class="button button-primary" value = "지금 바로 스크랩" form = "akahoshi-do-it-now" onclick = "return confirm(\'정말로 실행하려고?\')" > ';
+        echo '<p class="description" > 지금 바로 스크랩을 실행해 봅니다 .</p > ';
     }
 
     public static function miscReset(): void
     {
-        echo '<input id="akahoshi-reset" type="submit" class="button button-primary" value="리셋하기!" form="akahoshi-reset-all" onclick="return confirm(\'정말로 실행하려고?\')">';
-        echo '<p class="description">현재 기록된 기사 및 스크랩 관련 데이터베이스 기록을 모두 삭제합니다.</p>';
+        echo '<input id = "akahoshi-reset" type = "submit" class="button button-primary" value = "리셋하기!" form = "akahoshi-reset-all" onclick = "return confirm(\'정말로 실행하려고?\')" > ';
+        echo '<p class="description" > 현재 기록된 기사 및 스크랩 관련 데이터베이스 기록을 모두 삭제합니다 .</p > ';
     }
 }

@@ -40,6 +40,14 @@ function getRssUrl(string $directory): string
     return "https://www.chosun.com/arc/outboundfeeds/rss/category/$directory/?outputType=xml";
 }
 
+function getSectionUrl(string $section): string
+{
+    return match ($section) {
+        'health'  => 'https://www.chosun.com/medical/healthchosun/',
+        'nihongo' => 'https://www.chosun.com/national/nie/japanese/',
+    };
+}
+
 function guidToSlug(string $guid): string
 {
     if (str_starts_with($guid, 'https://www.chosun.com/')) {
