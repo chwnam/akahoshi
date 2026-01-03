@@ -17,6 +17,8 @@ class Admin
 
         add_action('admin_post_akahoshi_do_it_now', [$this, 'doItNow']);
         add_action('admin_post_akahoshi_reset_all', [$this, 'resetAll']);
+        add_action('admin_post_akahoshi_preview', [$this, 'preview']);
+        add_action('admin_post_akahoshi_chktmpl', [$this, 'chktmpl']);
     }
 
     public function addSettingsMenu(): void
@@ -107,6 +109,24 @@ class Admin
         );
 
         add_settings_field(
+            'akahoshi-nihongo-user_id',
+            '사용자',
+            [FR::class, 'userId'],
+            'akahoshi',
+            'akahoshi-nihongo',
+            [
+                'attrs'       => [
+                    'id'                => 'akahoshi-nihongo-user_id',
+                    'name'              => 'akahoshi_settings[nihongo][user_id]',
+                    'selected'          => $settings['nihongo']['user_id'] ?? 0,
+                    'show_option_none'  => '(설정 안함)',
+                    'option_none_value' => 0,
+                ],
+                'description' => '스크랩한 기사의 작성자를 선택한 사용자로 기록합니다.',
+            ]
+        );
+
+        add_settings_field(
             'akahoshi-nihongo-notify',
             '이메일',
             [FR::class, 'notify'],
@@ -185,6 +205,24 @@ class Admin
         );
 
         add_settings_field(
+            'akahoshi-health-user_id',
+            '사용자',
+            [FR::class, 'userId'],
+            'akahoshi',
+            'akahoshi-health',
+            [
+                'attrs'       => [
+                    'id'                => 'akahoshi-health-user_id',
+                    'name'              => 'akahoshi_settings[health][user_id]',
+                    'selected'          => $settings['health']['user_id'] ?? 0,
+                    'show_option_none'  => '(설정 안함)',
+                    'option_none_value' => 0,
+                ],
+                'description' => '스크랩한 기사의 작성자를 선택한 사용자로 기록합니다.',
+            ]
+        );
+
+        add_settings_field(
             'akahoshi-health-notify',
             '이메일',
             [FR::class, 'notify'],
@@ -233,6 +271,14 @@ class Admin
             'akahoshi',
             'akahoshi-misc',
         );
+
+        add_settings_field(
+            'akahoshi-misc-email-tmpl',
+            '이메일 템플릿',
+            [FR::class, 'miscEmailTmpl'],
+            'akahoshi',
+            'akahoshi-misc',
+        );
     }
 
     #[NoReturn]
@@ -256,5 +302,59 @@ class Admin
 
         wp_redirect(wp_get_referer());
         exit;
+    }
+
+    #[NoReturn]
+    public function preview(): void
+    {
+        check_admin_referer('akahoshi_preview', '_akahoshi_nonce');
+
+        template('email-tmpl.php', self::getPreviewEmailContext());
+
+        exit;
+    }
+
+    #[NoReturn]
+    public function chktmpl(): void
+    {
+        check_admin_referer('akahoshi_chktmpl', '_akahoshi_nonce');
+
+        $title = sprintf("[%s/아카호시] 템플릿 예제", get_bloginfo('name'));
+        $body  = template('email-tmpl.php', self::getPreviewEmailContext(), true);
+        $func  = fn() => 'text/html';
+
+        add_filter('wp_mail_content_type', $func);
+        wp_mail(get_bloginfo('admin_email'), $title, $body);
+        remove_filter('wp_mail_content_type', $func);
+
+        wp_redirect(wp_get_referer());
+        exit;
+    }
+
+    private static function getPreviewEmailContext(): array
+    {
+        $items = [
+            [
+                'url'   => 'https://chosun.com/',
+                'title' => '조선일보 홈페이지'
+            ],
+            [
+                'url'   => 'https://naver.com/',
+                'title' => '네이버 홈페이지'
+            ],
+            [
+                'url'   => 'https://google.com/',
+                'title' => '구글 홈페이지'
+            ],
+        ];
+
+        return [
+            'head_title'    => '아카호시 기사 스크랩 이메일',
+            'blog_name'     => get_bloginfo('name'),
+            'field_name'    => '예제',
+            'article_count' => count($items),
+            'archive_url'   => 'https://nate.com/',
+            'items'         => $items,
+        ];
     }
 }

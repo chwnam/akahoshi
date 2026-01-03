@@ -6,6 +6,8 @@ use Chwnam\Akahoshi\Object\Article;
 use Chwnam\Akahoshi\Object\ScrapTarget;
 use WP_Term;
 
+use function Chwnam\Akahoshi\template;
+
 class Notifier
 {
     private string $scrapTitle;
@@ -38,30 +40,40 @@ class Notifier
         $to      = $this->target->notify;
         $subject = $this->createSubject();
         $body    = $this->createBody();
+        $func    = fn() => 'text/html';
 
+        add_filter('wp_mail_content_type', $func);
         wp_mail($to, $subject, $body);
+        remove_filter('wp_mail_content_type', $func);
     }
 
     private function createSubject(): string
     {
-        return sprintf("[%s/Akahoshi] %s 새 기사 스크랩", get_bloginfo('name'), $this->scrapTitle);
+        return sprintf("[%s/아카호시] %s 새 기사 스크랩", get_bloginfo('name'), $this->scrapTitle);
     }
 
     private function createBody(): string
     {
-        return sprintf(
-            "안녕하세요, %s입니다.\r\n" .
-            "\r\n" .
-            "'%s' 영역의 새 기사 %d개가 수집되었습니다.\r\n" .
-            "자세한 내용은 블로그 {%s}에서 확인하세요.\r\n" .
-            "\r\n수집된 기사 항목:\r\n" .
-            "%s\r\n\r\n\r\n" .
-            "- 당신의 Akahoshi 플러그인이 드림.",
-            get_bloginfo('name'),
-            $this->scrapTitle,
-            count($this->items),
-            $this->archiveUrl,
-            implode("\r\n", array_map(fn($item) => " - $item->title", $this->items))
+        $items = [];
+
+        foreach ($this->items as $item) {
+            $items[] = [
+                'url'   => $item->link,
+                'title' => $item->title,
+            ];
+        }
+
+        return template(
+            'email-tmpl.php',
+            [
+                'head_title'    => '아카호시 기사 스크랩 이메일',
+                'blog_name'     => get_bloginfo('name'),
+                'field_name'    => $this->target->label,
+                'article_count' => count($items),
+                'archive_url'   => get_term_link($this->target->termId, 'category'),
+                'items'         => $items,
+            ],
+            true
         );
     }
 }

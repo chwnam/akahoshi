@@ -41,6 +41,7 @@ class PostInserter
 
             $p = wp_insert_post(
                 [
+                    'post_author'  => $target->userId,
                     'post_date'    => convertPubDate($item->datetime),
                     'post_title'   => $item->title,
                     'post_content' => wp_kses_post(removeCommonLocalStyle($item->content)) .

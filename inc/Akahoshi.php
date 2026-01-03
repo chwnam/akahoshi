@@ -92,15 +92,19 @@ class Akahoshi
             'nihongo' => [
                 'id'       => 'nihongo',
                 'enable'   => 'yes' === ($value['nihongo']['enable'] ?? '') ? 'yes' : 'no',
+                'label'    => '일본어',
                 'keywords' => sanitize_text_field($value['nihongo']['keywords']),
                 'term_id'  => absint($value['nihongo']['term_id'] ?? '0'),
+                'user_id'  => absint($value['nihongo']['user_id'] ?? '0'),
                 'notify'   => sanitize_email($value['nihongo']['notify'] ?? ''),
             ],
             'health'  => [
                 'id'       => 'health',
                 'enable'   => 'yes' === ($value['health']['enable'] ?? '') ? 'yes' : 'no',
+                'label'    => '건강',
                 'keywords' => sanitize_text_field($value['health']['keywords']),
                 'term_id'  => absint($value['health']['term_id'] ?? '0'),
+                'user_id'  => absint($value['health']['user_id'] ?? '0'),
                 'notify'   => sanitize_email($value['health']['notify'] ?? ''),
             ],
         ];

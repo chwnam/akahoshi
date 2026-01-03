@@ -48,6 +48,15 @@ class FieldRenderer
         printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
     }
 
+    public static function userId(array $args): void
+    {
+        $attrs = $args['attrs'] ?? [];
+
+        wp_dropdown_users($attrs);
+
+        printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
+    }
+
     public static function notify(array $args): void
     {
         $attrs = $args['attrs'] ?? [];
@@ -111,5 +120,33 @@ PHP_EOT
     {
         echo '<input id = "akahoshi-reset" type = "submit" class="button button-primary" value = "리셋하기!" form = "akahoshi-reset-all" onclick = "return confirm(\'정말로 실행하려고?\')" > ';
         echo '<p class="description" > 현재 기록된 기사 및 스크랩 관련 데이터베이스 기록을 모두 삭제합니다 .</p > ';
+    }
+
+    public static function miscEmailTmpl(): void
+    {
+        $previewUrl = add_query_arg(
+            [
+                'action'          => 'akahoshi_preview',
+                '_akahoshi_nonce' => wp_create_nonce('akahoshi_preview'),
+            ],
+            admin_url('admin-post.php')
+        );
+
+        echo '<a href="' . esc_url($previewUrl) . '" class="button button-secondary" target="preview">템플릿 확인</a>';
+        echo '<p class=description">버튼을 눌러 이메일 템플릿을 확인합니다.</p>';
+
+        $chkUrl = add_query_arg(
+            [
+                'action'          => 'akahoshi_chktmpl',
+                '_akahoshi_nonce' => wp_create_nonce('akahoshi_chktmpl'),
+            ],
+            admin_url('admin-post.php')
+        );
+
+        echo '<br>';
+        echo '<a href="' .
+            esc_url($chkUrl) .
+            '" class="button button-primary" onclick="return confirm(\'진짜 보낼까요?\');">이메일 확인</a>';
+        echo '<p class=description">버튼을 눌러 테스트 이메일을 실제로 보내봅니다.</p>';
     }
 }
