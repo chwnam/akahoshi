@@ -9,6 +9,7 @@
  * @var string $archive_url
  * @var array{
  *     url: string,
+ *     permalink: string,
  *     title: string,
  * }           $items
  */
@@ -96,6 +97,11 @@
             margin: 0;
             padding: 20px 0 2px 2px;
         }
+
+        .akahoshi-permalink {
+            font-size: 14px;
+            padding-left: 12px;
+        }
     </style>
 </head>
 <body id="akahoshi-email-body">
@@ -119,6 +125,8 @@
                 <li>
                     <a href="<?php echo esc_url($it['url']); ?>" target="_blank" rel="external nofollow noreferrer">
                         <?php echo esc_html($it['title']); ?>
+                    </a> <a class="akahoshi-permalink" href="<?php echo esc_url($it['permalink']); ?>" target="_blank" rel="external">
+                        &#x2B50; 블로그
                     </a>
                 </li>
             <?php endforeach; ?>

@@ -56,6 +56,14 @@ function guidToSlug(string $guid): string
     return strtolower(str_replace('/', '-', $guid));
 }
 
+function getPostByGuid(string $guid): int|false
+{
+    $name = guidToSlug($guid);
+    $id   = get_posts("numberposts=1&name=$name&fields=ids");
+
+    return $id ? intval($id[0]) : false;
+}
+
 /**
  * The style tag may be added automatically, by a batch-job.
  *

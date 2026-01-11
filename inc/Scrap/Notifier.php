@@ -6,12 +6,13 @@ use Chwnam\Akahoshi\Object\Article;
 use Chwnam\Akahoshi\Object\ScrapTarget;
 use WP_Term;
 
+use function Chwnam\Akahoshi\getPostByGuid;
 use function Chwnam\Akahoshi\template;
 
 class Notifier
 {
-    private string $scrapTitle;
-    private string $archiveUrl;
+    private string $scrapTitle  = '';
+    private string $archiveUrl = '#';
 
     /**
      * @param Article[]   $items
@@ -57,9 +58,11 @@ class Notifier
         $items = [];
 
         foreach ($this->items as $item) {
+            $id      = getPostByGuid($item->guid);
             $items[] = [
-                'url'   => $item->link,
-                'title' => $item->title,
+                'url'       => $item->link,
+                'title'     => $item->title,
+                'permalink' => $id ? get_permalink($id) : '#',
             ];
         }
 
@@ -70,7 +73,7 @@ class Notifier
                 'blog_name'     => get_bloginfo('name'),
                 'field_name'    => $this->target->label,
                 'article_count' => count($items),
-                'archive_url'   => get_term_link($this->target->termId, 'category'),
+                'archive_url'   => $this->archiveUrl,
                 'items'         => $items,
             ],
             true

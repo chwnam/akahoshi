@@ -336,15 +336,18 @@ class Admin
         $items = [
             [
                 'url'   => 'https://chosun.com/',
-                'title' => '조선일보 홈페이지'
+                'title' => '조선일보 홈페이지',
+                'permalink' => 'https://chosun.com',
             ],
             [
                 'url'   => 'https://naver.com/',
-                'title' => '네이버 홈페이지'
+                'title' => '네이버 홈페이지',
+                'permalink' => 'https://naver.com',
             ],
             [
                 'url'   => 'https://google.com/',
-                'title' => '구글 홈페이지'
+                'title' => '구글 홈페이지',
+                'permalink' => 'https://google.com',
             ],
         ];
 
