@@ -3,6 +3,7 @@
 use function Chwnam\Akahoshi\convertPubDate;
 use function Chwnam\Akahoshi\getPostByGuid;
 use function Chwnam\Akahoshi\guidToSlug;
+use function Chwnam\Akahoshi\removeImageDimension;
 
 class TestUtils extends WP_UnitTestCase
 {
@@ -32,5 +33,13 @@ class TestUtils extends WP_UnitTestCase
         $actual   = getPostByGuid($guid);
 
         $this->assertEquals($expected->ID, $actual);
+    }
+
+    public function test_removeImageDimension(): void
+    {
+        $input    = '<img src="https://testurl.com/" alt="" height="1449" width="650" />';
+        $expected = '<img src="https://testurl.com/" alt="" />';
+
+        $this->assertEquals($expected, removeImageDimension($input));
     }
 }

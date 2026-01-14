@@ -82,6 +82,16 @@ function removeCommonLocalStyle(string $input): string
     );
 }
 
+function removeImageDimension(string $input): string
+{
+    return preg_replace('/(?:width|height)="\d+" /', '', $input);
+}
+
+function modifyArticleContent(string $input): string
+{
+    return removeCommonLocalStyle($input);
+}
+
 function template(string $template, array $context = [], bool $return = false): string
 {
     $output = '';

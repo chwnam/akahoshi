@@ -93,6 +93,7 @@ class Scraper
                 [
                     'id'       => 'nihongo',
                     'enable'   => $value['nihongo']['enable'] ?? 'no',
+                    'label'    => '일본어',
                     'url'      => getRssUrl('national'),
                     'keywords' => $value['nihongo']['keywords'] ?? '',
                     'term_id'  => (int)($value['nihongo']['term_id'] ?? '0'),
@@ -103,6 +104,7 @@ class Scraper
                 [
                     'id'       => 'health',
                     'enable'   => $value['health']['enable'] ?? 'no',
+                    'label'    => '건강',
                     'url'      => getRssUrl('medical'),
                     'keywords' => $value['health']['keywords'] ?? '',
                     'term_id'  => (int)($value['health']['term_id'] ?? '0'),

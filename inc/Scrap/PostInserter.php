@@ -8,8 +8,8 @@ use stdClass;
 use WP_Query;
 
 use function Chwnam\Akahoshi\convertPubDate;
+use function Chwnam\Akahoshi\modifyArticleContent;
 use function Chwnam\Akahoshi\guidToSlug;
-use function Chwnam\Akahoshi\removeCommonLocalStyle;
 
 class PostInserter
 {
@@ -44,7 +44,7 @@ class PostInserter
                     'post_author'  => $target->userId,
                     'post_date'    => convertPubDate($item->datetime),
                     'post_title'   => $item->title,
-                    'post_content' => wp_kses_post(removeCommonLocalStyle($item->content)) .
+                    'post_content' => wp_kses_post(modifyArticleContent($item->content)) .
                         PHP_EOL .
                         '<div class="akahoshi-guid"><p>' .
                         '<a href="' . esc_url($item->guid) .

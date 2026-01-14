@@ -8,6 +8,9 @@ use Chwnam\Akahoshi\Scrap\PostInserter;
 use WP_Post;
 use WP_UnitTestCase;
 
+use WP_User;
+
+use function Chwnam\Akahoshi\getPostByGuid;
 use function Chwnam\Akahoshi\guidToSlug;
 
 class TestPostInserter extends WP_UnitTestCase
@@ -70,6 +73,27 @@ class TestPostInserter extends WP_UnitTestCase
         $newSlugs = array_map(fn($x) => guidToSlug($x->guid), $inserted);
 
         $this->assertEquals($expected, $newSlugs);
+    }
+
+    public function test_author(): void
+    {
+        $article        = new Article();
+        $article->title = 'Test Article';
+        $article->guid  = 'test-guid';
+
+        $user = $this->factory()->user->create_and_get();
+
+        $target         = new ScrapTarget();
+        $target->userId = $user->ID;
+
+        $inserted = $this->inserter->insert([$article], $target);
+
+        $this->assertCount(1, $inserted);
+        $this->assertEquals($article->guid, $inserted[0]->guid);
+
+        $post = get_post(getPostByGuid($inserted[0]->guid));
+        $this->assertInstanceOf(WP_Post::class, $post);
+        $this->assertEquals($target->userId, $post->post_author, '$target->user_id was not inserted');
     }
 
     protected function provider(): array
