@@ -17,6 +17,7 @@ class Akahoshi
         add_action('init', [$this, 'init']);
         add_action('akahoshi_scrap', [$this, 'scrap']);
 
+        add_action('wp_head', [$this, 'outputHeadScripts']);
         add_filter('jetpack_photon_skip_for_url', [$this, 'filterJetpackPhoton'], 10, 4);
 
         $this->admin = new Admin();
@@ -83,6 +84,11 @@ class Akahoshi
                 ],
             ]
         );
+    }
+
+    public function outputHeadScripts(): void
+    {
+        template('head-script.php');
     }
 
     public function scrap(): void
