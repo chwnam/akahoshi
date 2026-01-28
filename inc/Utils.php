@@ -35,15 +35,18 @@ function convertPubDate(string $input, string $timezone = ''): string
     return $datetime->setTimezone($tz)->format('Y-m-d H:i:s');
 }
 
-function getRssUrl(string $directory): string
+function getRssUrl(string $section): string
 {
-    return "https://www.chosun.com/arc/outboundfeeds/rss/category/$directory/?outputType=xml";
+    return match ($section) {
+        'health'  => 'https://health.chosun.com/site/data/rss/rss.xml',
+        'nihongo' => 'https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml',
+    };
 }
 
 function getSectionUrl(string $section): string
 {
     return match ($section) {
-        'health'  => 'https://www.chosun.com/medical/healthchosun/',
+        'health'  => 'https://health.chosun.com/',
         'nihongo' => 'https://www.chosun.com/national/nie/japanese/',
     };
 }

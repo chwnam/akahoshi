@@ -53,7 +53,7 @@ class PostInserter
                         '</a></div>',
                     'post_name'    => $slug,
                     'post_type'    => $target->postType,
-                    'post_status'  => 'publish',
+                    'post_status'  => 'private',
                     'meta_input'   => ['akahoshi_scrap' => '1'],
                 ]
             );

@@ -51,7 +51,7 @@ class Scraper
     /**
      * Filter items by keywords
      *
-     * Returns new array of article, filtered by keywords in the target.
+     * Returns a new array of articles, filtered by keywords in the target.
      * Target should have at least one keyword, otherwise it will return only empty array.
      * Article that matches at least one keyword can pass the filter.
      *
@@ -94,9 +94,10 @@ class Scraper
                     'id'       => 'nihongo',
                     'enable'   => $value['nihongo']['enable'] ?? 'no',
                     'label'    => '일본어',
-                    'url'      => getRssUrl('national'),
+                    'url'      => getRssUrl('nihongo'),
                     'keywords' => $value['nihongo']['keywords'] ?? '',
                     'term_id'  => (int)($value['nihongo']['term_id'] ?? '0'),
+                    'user_id'  => (int)($value['nihongo']['user_id'] ?? '0'),
                     'notify'   => $value['nihongo']['notify'] ?? '',
                 ]
             ),
@@ -105,9 +106,10 @@ class Scraper
                     'id'       => 'health',
                     'enable'   => $value['health']['enable'] ?? 'no',
                     'label'    => '건강',
-                    'url'      => getRssUrl('medical'),
+                    'url'      => getRssUrl('health'),
                     'keywords' => $value['health']['keywords'] ?? '',
                     'term_id'  => (int)($value['health']['term_id'] ?? '0'),
+                    'user_id'  => (int)($value['health']['user_id'] ?? '0'),
                     'notify'   => $value['health']['notify'] ?? '',
                 ]
             ),

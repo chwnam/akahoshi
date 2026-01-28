@@ -11,6 +11,7 @@ class FieldRenderer
     {
         $attrs = $args['attrs'] ?? [];
 
+        /** @noinspection HtmlUnknownAttribute */
         printf(
             '<input id="%s" name="%s" type="checkbox" value="yes" %s/>',
             esc_attr($attrs['id']),
@@ -76,16 +77,16 @@ class FieldRenderer
         echo '<p class="description">' .
             '<a href="' . esc_url(getSectionUrl('nihongo')) . '" target="_blank">일본어 섹션</a>' .
             ' | ' .
-            '<a href="' . esc_url(getRssUrl('national')) . '" target="_blank">RSS 구독</a>' .
+            '<a href="' . esc_url(getRssUrl('nihongo')) . '" target="_blank">RSS 구독</a>' .
             '</p>';
     }
 
     public static function sectionHealth(): void
     {
         echo '<p class="description">' .
-            '<a href="' . esc_url(getSectionUrl('health')) . '" target="_blank">헬스 조선 섹션</a>' .
+            '<a href="' . esc_url(getSectionUrl('health')) . '" target="_blank">헬스 조선</a>' .
             ' | ' .
-            '<a href="' . esc_url(getRssUrl('medical')) . '" target="_blank">RSS 구독</a>' .
+            '<a href="' . esc_url(getRssUrl('health')) . '" target="_blank">RSS 구독</a>' .
             '</p>';
     }
 
