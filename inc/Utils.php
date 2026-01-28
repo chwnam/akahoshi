@@ -51,17 +51,21 @@ function getSectionUrl(string $section): string
     };
 }
 
-function guidToSlug(string $guid): string
+function linkToSlug(string $link): string
 {
-    if (str_starts_with($guid, 'https://www.chosun.com/')) {
-        $guid = untrailingslashit(substr($guid, strlen('https://www.chosun.com/')));
+    if (str_starts_with($link, 'https://www.chosun.com/')) {
+        $link = untrailingslashit(substr($link, strlen('https://www.chosun.com/')));
+    } elseif (str_starts_with($link, 'https://health.chosun.com/')) {
+        $link = untrailingslashit(substr($link, strlen('https://health.chosun.com/site/data/html_dir/')));
+        $link = substr($link, 0, -5); // remove trailing '.html'
     }
-    return strtolower(str_replace('/', '-', $guid));
+
+    return strtolower(str_replace('/', '-', $link));
 }
 
-function getPostByGuid(string $guid): int|false
+function getPostByLink(string $link): int|false
 {
-    $name = guidToSlug($guid);
+    $name = linkToSlug($link);
     $id   = get_posts("numberposts=1&name=$name&fields=ids");
 
     return $id ? intval($id[0]) : false;

@@ -10,8 +10,8 @@ use WP_UnitTestCase;
 
 use WP_User;
 
-use function Chwnam\Akahoshi\getPostByGuid;
-use function Chwnam\Akahoshi\guidToSlug;
+use function Chwnam\Akahoshi\getPostByLink;
+use function Chwnam\Akahoshi\linkToSlug;
 
 class TestPostInserter extends WP_UnitTestCase
 {
@@ -70,7 +70,7 @@ class TestPostInserter extends WP_UnitTestCase
         }
 
         $inserted = $this->inserter->insert($items, $target);
-        $newSlugs = array_map(fn($x) => guidToSlug($x->guid), $inserted);
+        $newSlugs = array_map(fn($x) => linkToSlug($x->link), $inserted);
 
         $this->assertEquals($expected, $newSlugs);
     }
@@ -79,7 +79,7 @@ class TestPostInserter extends WP_UnitTestCase
     {
         $article        = new Article();
         $article->title = 'Test Article';
-        $article->guid  = 'test-guid';
+        $article->link  = 'test-link';
 
         $user = $this->factory()->user->create_and_get();
 
@@ -89,19 +89,19 @@ class TestPostInserter extends WP_UnitTestCase
         $inserted = $this->inserter->insert([$article], $target);
 
         $this->assertCount(1, $inserted);
-        $this->assertEquals($article->guid, $inserted[0]->guid);
+        $this->assertEquals($article->link, $inserted[0]->link);
 
-        $post = get_post(getPostByGuid($inserted[0]->guid));
+        $post = get_post(getPostByLink($inserted[0]->link));
         $this->assertInstanceOf(WP_Post::class, $post);
         $this->assertEquals($target->userId, $post->post_author, '$target->user_id was not inserted');
     }
 
     protected function provider(): array
     {
-        $itemGen = function (string $title, string $guid) {
+        $itemGen = function (string $title, string $link) {
             $article        = new Article();
             $article->title = $title;
-            $article->guid  = $guid;
+            $article->link  = $link;
 
             return $article;
         };

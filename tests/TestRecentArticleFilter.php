@@ -39,18 +39,18 @@ class TestRecentArticleFilter extends WP_UnitTestCase
 
     protected function provider(): array
     {
-        $generator = function (string $guid) {
+        $generator = function (string $link) {
             $article        = new Article();
             $article->title = 'Test Article';
-            $article->guid  = $guid;
+            $article->link  = $link;
 
             return $article;
         };
 
         $items = [
-            $generator(guid: '1'),
-            $generator(guid: '2'),
-            $generator(guid: '3'),
+            $generator(link: '1'),
+            $generator(link: '2'),
+            $generator(link: '3'),
         ];
 
         return [

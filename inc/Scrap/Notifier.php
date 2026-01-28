@@ -6,7 +6,7 @@ use Chwnam\Akahoshi\Object\Article;
 use Chwnam\Akahoshi\Object\ScrapTarget;
 use WP_Term;
 
-use function Chwnam\Akahoshi\getPostByGuid;
+use function Chwnam\Akahoshi\getPostByLink;
 use function Chwnam\Akahoshi\template;
 
 class Notifier
@@ -58,7 +58,7 @@ class Notifier
         $items = [];
 
         foreach ($this->items as $item) {
-            $id      = getPostByGuid($item->guid);
+            $id      = getPostByLink($item->link);
             $items[] = [
                 'url'       => $item->link,
                 'title'     => $item->title,

@@ -9,7 +9,7 @@ use WP_Query;
 
 use function Chwnam\Akahoshi\convertPubDate;
 use function Chwnam\Akahoshi\modifyArticleContent;
-use function Chwnam\Akahoshi\guidToSlug;
+use function Chwnam\Akahoshi\linkToSlug;
 
 class PostInserter
 {
@@ -25,15 +25,15 @@ class PostInserter
 
         // array of guid => slug
         $mappings = array_combine(
-            array_map(fn(Article $item): string => $item->guid, $items),
-            array_map(fn(Article $item) => guidToSlug($item->guid), $items),
+            array_map(fn(Article $item): string => $item->link, $items),
+            array_map(fn(Article $item) => linkToSlug($item->link), $items),
         );
 
         // post.slug => post.ID
         $inserted = $this->getAlreadyInsertedItems($items);
 
         foreach ($items as $item) {
-            $slug = $mappings[$item->guid];
+            $slug = $mappings[$item->link];
 
             if (isset($inserted[$slug])) {
                 continue;
@@ -47,7 +47,7 @@ class PostInserter
                     'post_content' => wp_kses_post(modifyArticleContent($item->content)) .
                         PHP_EOL .
                         '<div class="akahoshi-guid"><p>' .
-                        '<a href="' . esc_url($item->guid) .
+                        '<a href="' . esc_url($item->link) .
                         '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
                         '원본 기사 보기' .
                         '</a></div>',
@@ -89,7 +89,7 @@ class PostInserter
         $ph = implode(',', array_pad([], count($items), '%s'));
 
         // slugs
-        $slugs = array_map(fn(Article $item) => guidToSlug($item->guid), $items);
+        $slugs = array_map(fn(Article $item) => linkToSlug($item->link), $items);
 
         // Query and get status
         $status = $wpdb->get_results(

@@ -21,7 +21,7 @@ class RecentArticleFilter
         if ($lastGuid) {
             $found = false;
             for ($i = 0; $i < count($items); ++$i) {
-                if ($items[$i]->guid === $lastGuid) {
+                if ($items[$i]->link === $lastGuid) {
                     $found = true;
                     break;
                 }
@@ -32,8 +32,8 @@ class RecentArticleFilter
         }
 
         // update lastGuid
-        if (count($output) && $output[0]->guid) {
-            LastGuidMarker::set($target->id, $output[0]->guid);
+        if (count($output) && $output[0]->link) {
+            LastGuidMarker::set($target->id, $output[0]->link);
         }
 
         return $output;

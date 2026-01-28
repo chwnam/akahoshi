@@ -1,8 +1,8 @@
 <?php
 
 use function Chwnam\Akahoshi\convertPubDate;
-use function Chwnam\Akahoshi\getPostByGuid;
-use function Chwnam\Akahoshi\guidToSlug;
+use function Chwnam\Akahoshi\getPostByLink;
+use function Chwnam\Akahoshi\linkToSlug;
 use function Chwnam\Akahoshi\removeImageDimension;
 
 class TestUtils extends WP_UnitTestCase
@@ -21,16 +21,16 @@ class TestUtils extends WP_UnitTestCase
         $input    = 'https://www.chosun.com/national/people/2025/12/06/ZWMXPNAVIBBC7L6WTBBZK65KJA/';
         $expected = 'national-people-2025-12-06-zwmxpnavibbc7l6wtbbzk65kja';
 
-        $this->assertEquals($expected, guidToSlug($input));
+        $this->assertEquals($expected, linkToSlug($input));
     }
 
     public function test_getPostByGuid(): void
     {
         $guid = 'https://www.chosun.com/national/people/2025/12/06/ZWMXPNAVIBBC7L6WTBBZK65KJA/';
-        $slug = guidToSlug($guid);
+        $slug = linkToSlug($guid);
 
         $expected = $this->factory()->post->create_and_get(['post_name' => $slug]);
-        $actual   = getPostByGuid($guid);
+        $actual   = getPostByLink($guid);
 
         $this->assertEquals($expected->ID, $actual);
     }

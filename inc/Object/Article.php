@@ -6,6 +6,10 @@ class Article
 {
     public string $title = '';
     public string $link = '';
+    /**
+     * @deprecated
+     * The RSS of health.chosun.com does not contain the guid field. Do not use it.
+     */
     public string $guid = '';
     public string $author = '';
     public string $description = '';
