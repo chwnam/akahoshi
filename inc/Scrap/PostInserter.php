@@ -44,7 +44,7 @@ class PostInserter
                     'post_author'  => $target->userId,
                     'post_date'    => convertPubDate($item->datetime),
                     'post_title'   => $item->title,
-                    'post_content' => wp_kses_post(modifyArticleContent($item->content)) .
+                    'post_content' => wp_kses_post(modifyArticleContent($item->content ?: $item->description)) .
                         PHP_EOL .
                         '<div class="akahoshi-guid"><p>' .
                         '<a href="' . esc_url($item->link) .

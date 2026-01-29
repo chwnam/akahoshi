@@ -66,7 +66,7 @@ function linkToSlug(string $link): string
 function getPostByLink(string $link): int|false
 {
     $name = linkToSlug($link);
-    $id   = get_posts("numberposts=1&name=$name&fields=ids");
+    $id   = get_posts("numberposts=1&name=$name&fields=ids&post_status=publish,private");
 
     return $id ? intval($id[0]) : false;
 }
