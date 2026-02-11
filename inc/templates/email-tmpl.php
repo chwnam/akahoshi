@@ -59,25 +59,6 @@
             color: #555;
         }
 
-        .akahoshi-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 600;
-            margin: 0 2px;
-        }
-
-        #akahoshi-field {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        #akahoshi-scrap-count {
-            background-color: #ffebee;
-            color: #d32f2f;
-        }
-
         #akahoshi-article-list-title {
             font-size: 16px;
             font-weight: 600;
@@ -128,24 +109,10 @@
 <div id="akahoshi-container">
     <div id="akahoshi-email-inner">
         <section id="akahoshi-header">
-            <h1 id="akahoshi-greetings">
-                안녕하세요, <?php echo esc_html($blog_name); ?>입니다.
-            </h1>
+            <h1 id="akahoshi-greetings">기사 업데이트</h1>
         </section>
         <section id="akahoshi-content">
-            <p>
-                <span id="akahoshi-field"
-                      class="akahoshi-badge"><?php echo esc_html($field_name); ?></span>
-                영역의 새 기사
-                <span id="akahoshi-scrap-count"
-                      class="akahoshi-badge"><?php echo esc_html($article_count); ?>개</span>가
-                수집되었습니다.
-            </p>
-            <p>
-                자세한 내용은 <a href="<?php echo esc_url($archive_url); ?>"
-                           style="color: #1a73e8; text-decoration: underline; font-weight: bold;">블로그</a>에서 확인하세요.
-            </p>
-            <h3 id="akahoshi-article-list-title">수집된 기사 항목</h3>
+            <h3 id="akahoshi-article-list-title">새 기사 목록</h3>
             <ul id="akahoshi-article-list">
                 <?php foreach ($items as $it): ?>
                     <li>
@@ -158,11 +125,14 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+            <p>
+                <a href="<?php echo esc_url($archive_url); ?>"><?php echo esc_html($field_name); ?> 아카이브 페이지</a>
+            </p>
         </section>
         <section id="akahoshi-footer">
             <h3 id="akahoshi-sender"
-                style="margin-top:40px;padding-top:20px;border-top:1px solid #eee;font-size:14px;color: #888;">
-                당신의 아카호시 플러그인이 드림.
+                style="margin-top:20px;padding-top:20px;border-top:1px solid #eee;font-size:14px;color: #888;">
+                <?php echo esc_html($blog_name) ?> 아카호시 플러그인이 드림.
             </h3>
         </section>
     </div>

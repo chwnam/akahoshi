@@ -44,7 +44,7 @@ class TestPostInserter extends WP_UnitTestCase
      *
      * @dataProvider provider
      */
-    public function test_filter(array $expected, array $items, ScrapTarget $target, array $slugs): void
+    public function test_inserter(array $expected, array $items, ScrapTarget $target, array $slugs): void
     {
         $postGen = function (string $slug) {
             static $count = 1;

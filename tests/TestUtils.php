@@ -1,19 +1,24 @@
 <?php
 
-use function Chwnam\Akahoshi\convertPubDate;
+use function Chwnam\Akahoshi\convertRssDate;
 use function Chwnam\Akahoshi\getPostByLink;
 use function Chwnam\Akahoshi\linkToSlug;
 use function Chwnam\Akahoshi\removeImageDimension;
+use function Chwnam\Akahoshi\trimAuthors;
 
 class TestUtils extends WP_UnitTestCase
 {
-    public function test_convertPubDate(): void
+    public function test_convertRssDate(): void
     {
         $input    = 'Fri, 05 Dec 2025 18:00:00 +0000';
         $expected = '2025-12-06 03:00:00';
         $timezone = 'Asia/Seoul';
+        $this->assertEquals($expected, convertRssDate($input, $timezone));
 
-        $this->assertEquals($expected, convertPubDate($input, $timezone));
+        $input    = '2026-02-11T15:04:01+09:00';
+        $expected = '2026-02-11 06:04:01';
+        $timezone = 'UTC';
+        $this->assertEquals($expected, convertRssDate($input, $timezone));
     }
 
     public function test_guidToSlug(): void
@@ -41,5 +46,13 @@ class TestUtils extends WP_UnitTestCase
         $expected = '<img src="https://testurl.com/" alt="" />';
 
         $this->assertEquals($expected, removeImageDimension($input));
+    }
+
+    public function test_trimAuthors(): void
+    {
+        $input    = '오상훈 기자 ( osh@chosun.com   ),이윤주 인턴기자(     )';
+        $expected = '오상훈 기자 (osh@chosun.com), 이윤주 인턴기자 ()';
+
+        $this->assertEquals($expected, trimAuthors($input));
     }
 }

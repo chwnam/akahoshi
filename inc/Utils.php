@@ -13,10 +13,15 @@ function getAkahoshi(): Akahoshi
     return $akahoshi;
 }
 
-function convertPubDate(string $input, string $timezone = ''): string
+function convertRssDate(string $input, string $timezone = ''): string
 {
     // e.g. Thu, 27 Nov 2025 18:00:00 +0000
     $datetime = date_create_immutable_from_format('D, d M Y H:i:s O', $input);
+
+    if (!$datetime) {
+        // e.g. 2026-02-11T15:04:01+09:00, ISO 8601 date
+        $datetime = date_create_immutable_from_format('Y-m-d\TH:i:sO', $input);
+    }
 
     if (!$datetime) {
         return '';
@@ -92,6 +97,23 @@ function removeCommonLocalStyle(string $input): string
 function removeImageDimension(string $input): string
 {
     return preg_replace('/(?:width|height)="\d+" /', '', $input);
+}
+
+function trimAuthors(string $input): string
+{
+    // remove too many spaces
+    $output = preg_replace('/\s+/', ' ', $input);
+
+    // add a space after comma
+    $output = preg_replace('/,(\S)/', ', $1', $output);
+
+    // add a space before opening parenthesis
+    $output = preg_replace('/(\S)\(/', '$1 (', $output);
+
+    // remove a single space around parentheses
+    $output = str_replace(['( ', ' )'], ['(', ')'], $output);
+
+    return trim($output);
 }
 
 function modifyArticleContent(string $input): string

@@ -7,7 +7,7 @@ use Chwnam\Akahoshi\Object\ScrapTarget;
 use stdClass;
 use WP_Query;
 
-use function Chwnam\Akahoshi\convertPubDate;
+use function Chwnam\Akahoshi\convertRssDate;
 use function Chwnam\Akahoshi\modifyArticleContent;
 use function Chwnam\Akahoshi\linkToSlug;
 
@@ -42,7 +42,7 @@ class PostInserter
             $p = wp_insert_post(
                 [
                     'post_author'  => $target->userId,
-                    'post_date'    => convertPubDate($item->datetime),
+                    'post_date'    => convertRssDate($item->datetime),
                     'post_title'   => $item->title,
                     'post_content' => wp_kses_post(modifyArticleContent($item->content ?: $item->description)) .
                         PHP_EOL .

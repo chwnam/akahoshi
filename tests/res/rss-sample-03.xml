@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>헬스조선 : 전체기사</title>
+        <link>http://health.chosun.com</link>
+        <description>헬스조선 RSS 서비스 | 전체기사</description>
+        <lastBuildDate>Wed, 11 Feb 2026 15:05:45 +0900</lastBuildDate>
+        <copyright>Copyright (c) 2013 health.chosun.com All rights reserved</copyright>
+        <webMaster>hnews@chosun.com</webMaster>
+        <language>ko</language>
+        <image>
+            <title>헬스조선</title>
+            <url>https://health.chosun.com/images/logo_rss.gif</url>
+            <link>https://health.chosun.com</link>
+            <description>헬스조선</description>
+        </image>
+        <item>
+            <title><![CDATA[AI가 줄글 의료기록을 표준 데이터로… 관상동맥조영술 자동 분석 길 열렸다]]></title>
+            <link>https://health.chosun.com/site/data/html_dir/2026/02/11/2026021103073.html</link>
+            <description><![CDATA[대부분 비정형적인 서술 방식으로 작성돼 대규모 연구나 정책 분석에 활...]]></description>
+            <dc:date>2026-02-11T15:05:43+09:00</dc:date>
+            <author><![CDATA[신소영 기자 ( ssy@chosun.com   )]]></author>
+            <category><![CDATA[단신]]></category>
+        </item>
+        <item>
+            <title><![CDATA[서울부민병원 박억숭 과장, ‘Easy Fun Happy 약리학’ 출간]]></title>
+            <link>https://health.chosun.com/site/data/html_dir/2026/02/11/2026021103070.html</link>
+            <description><![CDATA[
+	서울부민병원 박억숭 과장이 대표 저자로 참여한 보건의료 종사자용 약리학 교재 ‘Easy Fun Happy 약리학’이 최근 출간됐다. 이 책은 현직 의사와 간호사, 간호학과 교수진이 함께 집필한 약리학 교재다. 박억숭 과장(흉부외과 전문의), 동아대 흉부외과 정상석 교수를 비롯해 간호학과 교수와 부민병원 간호사들이 공동 집필에 참여했다.Easy Fun Happy 약리학은 기초의학 과목 가운데서도 특히 어렵게 느껴지는 약리학을 더욱 쉽게 이해할 수 있도록 구성한 것이 특징이다. 해부학, 생리학, 병리학, 임상 지식을 바탕으로 약물의 작...]]></description>
+            <dc:date>2026-02-11T15:04:01+09:00</dc:date>
+            <author><![CDATA[유예진 기자(  yyj@chosun.com   )]]></author>
+            <category><![CDATA[책/문화]]></category>
+        </item>
+        <item>
+            <title><![CDATA[조금 전 얘기 기억 못하시는 부모님… 치매 의심 증상은?]]></title>
+            <link>https://health.chosun.com/site/data/html_dir/2026/02/11/2026021103041.html</link>
+            <description><![CDATA[
+	설 연휴 오랜만에 가족이 모이면서 눈에 띄게 기억력과 행동이 변화한 가족을 보고 치매를 걱정하는 경우가 많다. 치매는 기억력, 언어능력, 판단력 등 인지기능이 저하돼 일상생활이 어려워진 상태를 통틀어 부르는 말이다. 65세 이상 인구 10명 중 1명이 앓고 있는 치매의 가장 흔한 원인은 알츠하이머병으로, 국내외 연구를 종합하면 전체 치매의 약 3분의 2 이상을 차지한다. 치매는 누구에게나 두려운 질환이지만, 조기에 발견해 적절한 치료와 관리를 하면 인지기능 저하 속도를 늦출 수 있다.◇기억력, 판단력 저하가 수개월 이상 지속되면 의...]]></description>
+            <dc:date>2026-02-11T14:58:34+09:00</dc:date>
+            <author><![CDATA[오상훈 기자 ( osh@chosun.com   ),이윤주 인턴기자(     )]]></author>
+            <category><![CDATA[노인질환]]></category>
+        </item>
+    </channel>
+</rss>
