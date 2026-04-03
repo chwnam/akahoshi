@@ -24,7 +24,9 @@ class KeywordArticleFilter
                 array_reduce(
                     array: $target->keywords,
                     callback: fn(bool $carry, string $keyword): bool => $carry ||
-                        str_contains(strtolower($item->title), $keyword),
+                        str_contains(strtolower($item->title), strtolower($keyword)) ||
+                        str_contains(strtolower($item->description), strtolower($keyword))
+                    ,
                     initial: false,
                 );
         };

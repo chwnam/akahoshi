@@ -3,7 +3,6 @@
 namespace Chwnam\Akahoshi\Tests;
 
 use WP_UnitTestCase;
-use WP_User;
 
 class TestAkahoshi extends WP_UnitTestCase
 {

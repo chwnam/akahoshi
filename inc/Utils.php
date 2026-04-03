@@ -2,6 +2,9 @@
 
 namespace Chwnam\Akahoshi;
 
+use DateInterval;
+use DateTimeZone;
+
 function getAkahoshi(): Akahoshi
 {
     static $akahoshi = null;
@@ -119,6 +122,20 @@ function trimAuthors(string $input): string
 function modifyArticleContent(string $input): string
 {
     return removeCommonLocalStyle($input);
+}
+
+function getNextHour(string $dateString = 'now'): int
+{
+    $date = date_create($dateString, new DateTimeZone('UTC'));
+
+    if (!$date) {
+        return 0;
+    }
+
+    $oneHourLater = $date->add(new DateInterval('PT1H'));
+    $punctual     = $oneHourLater->setTime($oneHourLater->format('H'), 0);
+
+    return $punctual->getTimestamp();
 }
 
 function template(string $template, array $context = [], bool $return = false): string

@@ -12,7 +12,7 @@ class Scraper
     public function scrap(): void
     {
         foreach ($this->getScrapTargets() as $t) {
-            if (!$t->enable) {
+            if ( ! $t->enable) {
                 return;
             }
 
@@ -21,7 +21,25 @@ class Scraper
             $filtered = $this->filterArticlesByKeywords($limited, $t);
             $inserted = $this->addToPosts($filtered, $t);
 
-            $this->notify($inserted, $t);
+            if (-1 === $t->notifyAt) {
+                $this->notify($inserted, $t);
+            } else {
+                $this->addToQueue($inserted, $t);
+            }
+        }
+    }
+
+    public function notifyQueued(): void
+    {
+        foreach ($this->getScrapTargets() as $t) {
+            (new MailQueue($t))->send();
+        }
+    }
+
+    public function limitPosts(): void
+    {
+        foreach ($this->getScrapTargets() as $t) {
+            (new CountLimit($t))->limitPosts();
         }
     }
 
@@ -38,7 +56,7 @@ class Scraper
     /**
      * Limit to only recent items.
      *
-     * @param Article[]   $items
+     * @param Article[] $items
      * @param ScrapTarget $target
      *
      * @return array
@@ -55,7 +73,7 @@ class Scraper
      * Target should have at least one keyword, otherwise it will return only empty array.
      * Article that matches at least one keyword can pass the filter.
      *
-     * @param Article[]   $items
+     * @param Article[] $items
      * @param ScrapTarget $target
      *
      * @return Article[]
@@ -66,7 +84,7 @@ class Scraper
     }
 
     /**
-     * @param Article[]   $items
+     * @param Article[] $items
      * @param ScrapTarget $target
      *
      * @return Article[]
@@ -76,9 +94,29 @@ class Scraper
         return (new PostInserter())->insert($items, $target);
     }
 
+    /**
+     * @param Article[] $items
+     * @param ScrapTarget $target
+     *
+     * @return void
+     */
     private function notify(array $items, ScrapTarget $target): void
     {
         (new Notifier($items, $target))->notify();
+    }
+
+    /**
+     * @param Article[] $items
+     * @param ScrapTarget $target
+     */
+    private function addToQueue(array $items, ScrapTarget $target): void
+    {
+        (new MailQueue($target))->queue($items);
+    }
+
+    private function limitPostCount(ScrapTarget $target): void
+    {
+        (new CountLimit($target))->limitPosts();
     }
 
     /**
@@ -91,26 +129,30 @@ class Scraper
         return [
             new ScrapTarget(
                 [
-                    'id'       => 'nihongo',
-                    'enable'   => $value['nihongo']['enable'] ?? 'no',
-                    'label'    => '일본어',
-                    'url'      => getRssUrl('nihongo'),
-                    'keywords' => $value['nihongo']['keywords'] ?? '',
-                    'term_id'  => (int)($value['nihongo']['term_id'] ?? '0'),
-                    'user_id'  => (int)($value['nihongo']['user_id'] ?? '0'),
-                    'notify'   => $value['nihongo']['notify'] ?? '',
+                    'id'          => 'nihongo',
+                    'enable'      => $value['nihongo']['enable'] ?? 'no',
+                    'label'       => '일본어',
+                    'url'         => getRssUrl('nihongo'),
+                    'keywords'    => $value['nihongo']['keywords'] ?? '',
+                    'term_id'     => (int)($value['nihongo']['term_id'] ?? '0'),
+                    'user_id'     => (int)($value['nihongo']['user_id'] ?? '0'),
+                    'notify'      => $value['nihongo']['notify'] ?? '',
+                    'notify_at'   => $value['nihongo']['notify_at'] ?? '-1',
+                    'count_limit' => $value['nihongo']['count_limit'] ?? '0',
                 ]
             ),
             new ScrapTarget(
                 [
-                    'id'       => 'health',
-                    'enable'   => $value['health']['enable'] ?? 'no',
-                    'label'    => '건강',
-                    'url'      => getRssUrl('health'),
-                    'keywords' => $value['health']['keywords'] ?? '',
-                    'term_id'  => (int)($value['health']['term_id'] ?? '0'),
-                    'user_id'  => (int)($value['health']['user_id'] ?? '0'),
-                    'notify'   => $value['health']['notify'] ?? '',
+                    'id'          => 'health',
+                    'enable'      => $value['health']['enable'] ?? 'no',
+                    'label'       => '건강',
+                    'url'         => getRssUrl('health'),
+                    'keywords'    => $value['health']['keywords'] ?? '',
+                    'term_id'     => (int)($value['health']['term_id'] ?? '0'),
+                    'user_id'     => (int)($value['health']['user_id'] ?? '0'),
+                    'notify'      => $value['health']['notify'] ?? '',
+                    'notify_at'   => $value['health']['notify_at'] ?? '-1',
+                    'count_limit' => $value['health']['count_limit'] ?? '0',
                 ]
             ),
         ];

@@ -63,7 +63,35 @@ class FieldRenderer
         $attrs = $args['attrs'] ?? [];
 
         printf(
-            '<input id="%s" name="%s" type="email" class="text regular-text" value="%s" />',
+            '<input id="%s" name="%s" type="email" class="text regular-text" value="%s" data-bwignore="true"/>',
+            esc_attr($attrs['id'] ?? ''),
+            esc_attr($attrs['name'] ?? ''),
+            esc_attr($attrs['value'] ?? ''),
+        );
+
+        printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
+    }
+
+    public static function notifyAt(array $args): void
+    {
+        $attrs = $args['attrs'] ?? [];
+
+        printf(
+            '<input id="%s" name="%s" type="number" class="text" value="%s" min="-1" max="23" />',
+            esc_attr($attrs['id'] ?? ''),
+            esc_attr($attrs['name'] ?? ''),
+            esc_attr($attrs['value'] ?? ''),
+        );
+
+        printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
+    }
+
+    public static function countLimit(array $args): void
+    {
+        $attrs = $args['attrs'] ?? [];
+
+        printf(
+            '<input id="%s" name="%s" type="number" class="text" value="%s" min="0" />',
             esc_attr($attrs['id'] ?? ''),
             esc_attr($attrs['name'] ?? ''),
             esc_attr($attrs['value'] ?? ''),

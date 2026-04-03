@@ -1,6 +1,7 @@
 <?php
 
 use function Chwnam\Akahoshi\convertRssDate;
+use function Chwnam\Akahoshi\getNextHour;
 use function Chwnam\Akahoshi\getPostByLink;
 use function Chwnam\Akahoshi\linkToSlug;
 use function Chwnam\Akahoshi\removeImageDimension;
@@ -54,5 +55,15 @@ class TestUtils extends WP_UnitTestCase
         $expected = '오상훈 기자 (osh@chosun.com), 이윤주 인턴기자 ()';
 
         $this->assertEquals($expected, trimAuthors($input));
+    }
+
+    public function test_getNextHour(): void
+    {
+        $input  = '2026-04-03 14:32:15';
+        $output = '2026-04-03 15:00:00';
+
+        $timestamp = getNextHour($input);
+        $date      = new DateTime("@$timestamp");
+        $this->assertEquals($output, $date->format('Y-m-d H:i:s'));
     }
 }

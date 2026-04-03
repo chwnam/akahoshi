@@ -16,6 +16,8 @@ class Akahoshi
 
         add_action('init', [$this, 'init']);
         add_action('akahoshi_scrap', [$this, 'scrap']);
+        add_action('akahoshi_notify', [$this, 'notify']);
+        add_action('akahoshi_limit', [$this, 'limit']);
 
         add_action('wp_head', [$this, 'outputHeadScripts']);
         add_filter('jetpack_photon_skip_for_url', [$this, 'filterJetpackPhoton'], 10, 4);
@@ -28,11 +30,21 @@ class Akahoshi
         if (!wp_next_scheduled('akahoshi_scrap')) {
             wp_schedule_event(time(), 'hourly', 'akahoshi_scrap');
         }
+
+        if (!wp_next_scheduled('akahoshi_notify')) {
+            wp_schedule_event(getNextHour(), 'hourly', 'akahoshi_notify');
+        }
+
+        if (!wp_next_scheduled('akahoshi_limit')) {
+            wp_schedule_event(getNextHour(), 'weekly', 'akahoshi_limit');
+        }
     }
 
     public function deactivation(): void
     {
         wp_unschedule_hook('akahoshi_scrap');
+        wp_unschedule_hook('akahoshi_notify');
+        wp_unschedule_hook('akahoshi_limit');
     }
 
     /**
@@ -64,22 +76,26 @@ class Akahoshi
                 'show_in_rest'      => false,
                 'default'           => [
                     'nihongo' => [
-                        'id'       => 'nihongo',
-                        'enable'   => false,
-                        'keywords' => '',
-                        'label'    => '',
-                        'term_id'  => 0,
-                        'user_id'  => 0,
-                        'notify'   => '',
+                        'id'          => 'nihongo',
+                        'enable'      => false,
+                        'keywords'    => '',
+                        'label'       => '',
+                        'term_id'     => 0,
+                        'user_id'     => 0,
+                        'notify'      => '',
+                        'notify_at'   => -1,
+                        'count_limit' => 0,
                     ],
                     'health'  => [
-                        'id'       => 'health',
-                        'enable'   => false,
-                        'keywords' => '',
-                        'label'    => '',
-                        'term_id'  => 0,
-                        'user_id'  => 0,
-                        'notify'   => '',
+                        'id'          => 'health',
+                        'enable'      => false,
+                        'keywords'    => '',
+                        'label'       => '',
+                        'term_id'     => 0,
+                        'user_id'     => 0,
+                        'notify'      => '',
+                        'notify_at'   => -1,
+                        'count_limit' => 0,
                     ],
                 ],
             ]
@@ -96,26 +112,40 @@ class Akahoshi
         (new Scraper())->scrap();
     }
 
+    public function notify(): void
+    {
+        (new Scraper())->notifyQueued();
+    }
+
+    public function limit(): void
+    {
+        (new Scraper())->limitPosts();
+    }
+
     public static function sanitizeSettings(array $value): array
     {
         return [
             'nihongo' => [
-                'id'       => 'nihongo',
-                'enable'   => 'yes' === ($value['nihongo']['enable'] ?? '') ? 'yes' : 'no',
-                'label'    => '일본어',
-                'keywords' => sanitize_text_field($value['nihongo']['keywords']),
-                'term_id'  => absint($value['nihongo']['term_id'] ?? '0'),
-                'user_id'  => absint($value['nihongo']['user_id'] ?? '0'),
-                'notify'   => sanitize_email($value['nihongo']['notify'] ?? ''),
+                'id'          => 'nihongo',
+                'enable'      => 'yes' === ($value['nihongo']['enable'] ?? '') ? 'yes' : 'no',
+                'label'       => '일본어',
+                'keywords'    => sanitize_text_field($value['nihongo']['keywords']),
+                'term_id'     => absint($value['nihongo']['term_id'] ?? '0'),
+                'user_id'     => absint($value['nihongo']['user_id'] ?? '0'),
+                'notify'      => sanitize_email($value['nihongo']['notify'] ?? ''),
+                'notify_at'   => intval($value['nihongo']['notify_at'] ?? -1),
+                'count_limit' => absint($value['nihongo']['count_limit'] ?? 0),
             ],
             'health'  => [
-                'id'       => 'health',
-                'enable'   => 'yes' === ($value['health']['enable'] ?? '') ? 'yes' : 'no',
-                'label'    => '건강',
-                'keywords' => sanitize_text_field($value['health']['keywords']),
-                'term_id'  => absint($value['health']['term_id'] ?? '0'),
-                'user_id'  => absint($value['health']['user_id'] ?? '0'),
-                'notify'   => sanitize_email($value['health']['notify'] ?? ''),
+                'id'          => 'health',
+                'enable'      => 'yes' === ($value['health']['enable'] ?? '') ? 'yes' : 'no',
+                'label'       => '건강',
+                'keywords'    => sanitize_text_field($value['health']['keywords']),
+                'term_id'     => absint($value['health']['term_id'] ?? '0'),
+                'user_id'     => absint($value['health']['user_id'] ?? '0'),
+                'notify'      => sanitize_email($value['health']['notify'] ?? ''),
+                'notify_at'   => intval($value['health']['notify_at'] ?? -1),
+                'count_limit' => absint($value['health']['count_limit'] ?? 0),
             ],
         ];
     }
