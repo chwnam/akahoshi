@@ -139,16 +139,22 @@ PHP_EOT
         echo '</pre > ';
     }
 
-    public static function miscDoItNow(): void
+    public static function miscDoScrapNow(): void
     {
-        echo '<input id = "akahoshi-do-it" type = "submit" class="button button-primary" value = "지금 바로 스크랩" form = "akahoshi-do-it-now" onclick = "return confirm(\'정말로 실행하려고?\')" > ';
-        echo '<p class="description" > 지금 바로 스크랩을 실행해 봅니다 .</p > ';
+        echo '<input id="do_scrap_now" type="submit" class="button button-primary" value="지금 바로 스크랩" form="akahoshi-do_scrap_now" onclick="return confirm(\'정말로 실행하려고?\')"> ';
+        echo '<p class="description">지금 바로 스크랩을 실행해 봅니다.</p > ';
+    }
+
+    public static function miscDoNotifyNow(): void
+    {
+        echo '<input id="do_notify_now" type="submit" class="button button-primary" value="지금 바로 통지" form="akahoshi-do_notify_now" onclick="return confirm(\'정말로 실행하려고?\')">';
+        echo '<p class="description">지금 바로 스크랩을 실행해 봅니다.</p > ';
     }
 
     public static function miscReset(): void
     {
-        echo '<input id = "akahoshi-reset" type = "submit" class="button button-primary" value = "리셋하기!" form = "akahoshi-reset-all" onclick = "return confirm(\'정말로 실행하려고?\')" > ';
-        echo '<p class="description" > 현재 기록된 기사 및 스크랩 관련 데이터베이스 기록을 모두 삭제합니다 .</p > ';
+        echo '<input id="akahoshi-reset" type="submit" class="button button-primary" value="리셋하기!" form="akahoshi-reset-all" onclick="return confirm(\'정말로 실행하려고?\')"> ';
+        echo '<p class="description">현재 기록된 기사 및 스크랩 관련 데이터베이스 기록을 모두 삭제합니다.</p> ';
     }
 
     public static function miscEmailTmpl(): void

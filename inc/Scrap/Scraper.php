@@ -114,11 +114,6 @@ class Scraper
         (new MailQueue($target))->queue($items);
     }
 
-    private function limitPostCount(ScrapTarget $target): void
-    {
-        (new CountLimit($target))->limitPosts();
-    }
-
     /**
      * @return ScrapTarget[]
      */

@@ -37,7 +37,7 @@ class MailQueue
     public function send(): void
     {
         $hour        = $this->target->notifyAt;
-        $currentHour = (int)date('H', wp_timezone());
+        $currentHour = (int)wp_date('H', null, wp_timezone());
         $queued      = get_transient($this->name);
 
         if ( ! $this->target->enable || $currentHour !== $hour || empty($queued)) {

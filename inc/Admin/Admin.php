@@ -15,7 +15,8 @@ class Admin
     {
         add_action('admin_menu', [$this, 'addSettingsMenu']);
 
-        add_action('admin_post_akahoshi_do_it_now', [$this, 'doItNow']);
+        add_action('admin_post_akahoshi_do_scrap_now', [$this, 'doScrapNow']);
+        add_action('admin_post_akahoshi_do_notify_now', [$this, 'doNotifyNow']);
         add_action('admin_post_akahoshi_reset_all', [$this, 'resetAll']);
         add_action('admin_post_akahoshi_preview', [$this, 'preview']);
         add_action('admin_post_akahoshi_chktmpl', [$this, 'chktmpl']);
@@ -28,8 +29,38 @@ class Admin
             '아카호시',
             'manage_options',
             'akahoshi',
-            [$this, 'outputSettingsPage'],
+            [$this, 'outputTabs'],
         );
+    }
+
+    public function outputTabs(): void
+    {
+        $get = array_intersect_key(
+            $_GET,
+            [
+                'page' => '',
+                'tab'  => '',
+            ]
+        );
+
+        $url = admin_url('options-general.php');
+
+        template('tabs.php', [
+            'tabs' => [
+                [
+                    'tab'      => 'settings',
+                    'title'    => '설정',
+                    'url'      => add_query_arg([... $get, 'tab' => 'settings'], $url),
+                    'callback' => [$this, 'outputSettingsPage'],
+                ],
+                [
+                    'tab'      => 'status',
+                    'title'    => '상태',
+                    'url'      => add_query_arg([... $get, 'tab' => 'status'], $url),
+                    'callback' => [$this, 'outputStatusPage'],
+                ],
+            ],
+        ]);
     }
 
     public function outputSettingsPage(): void
@@ -88,9 +119,17 @@ class Admin
         );
 
         add_settings_field(
-            'akahoshi-misc-do-it',
-            '지금 바로 실행',
-            [FR::class, 'miscDoItNow'],
+            'akahoshi-misc-do_scrap_now',
+            '지금 바로 스크랩',
+            [FR::class, 'miscDoScrapNow'],
+            'akahoshi',
+            'akahoshi-misc',
+        );
+
+        add_settings_field(
+            'akahoshi-misc-do_notify_now',
+            '지금 바로 통지',
+            [FR::class, 'miscDoNotifyNow'],
             'akahoshi',
             'akahoshi-misc',
         );
@@ -112,12 +151,90 @@ class Admin
         );
     }
 
-    #[NoReturn]
-    public function doItNow(): void
+    public function outputStatusPage(): void
     {
-        check_admin_referer('akahoshi_do_it_now', '_akahoshi_nonce');
+        $schedules = wp_get_schedules();
+
+        $context = [
+            'scrap'  => [
+                'display'  => '',
+                'datetime' => '',
+            ],
+            'notify' => [
+                'display'  => '',
+                'datetime' => '',
+            ],
+            'limit'  => [
+                'display'  => '',
+                'datetime' => '',
+            ],
+        ];
+
+        if (wp_next_scheduled('akahoshi_scrap')) {
+            $event = wp_get_scheduled_event('akahoshi_scrap');
+
+            if ($event) {
+                $timestamp = $event->timestamp;
+                $schedule  = $event->schedule;
+
+                $context['scrap']['display']  = $schedules[$schedule]['display'];
+                $context['scrap']['datetime'] = wp_date(
+                    get_option('date_format') . ' ' . get_option('time_format'),
+                    $timestamp
+                );
+            }
+        }
+
+        if (wp_next_scheduled('akahoshi_notify')) {
+            $event = wp_get_scheduled_event('akahoshi_notify');
+
+            if ($event) {
+                $timestamp = $event->timestamp;
+                $schedule  = $event->schedule;
+
+                $context['notify']['display']  = $schedules[$schedule]['display'];
+                $context['notify']['datetime'] = wp_date(
+                    get_option('date_format') . ' ' . get_option('time_format'),
+                    $timestamp
+                );
+            }
+        }
+
+        if (wp_next_scheduled('akahoshi_limit')) {
+            $event = wp_get_scheduled_event('akahoshi_limit');
+
+            if ($event) {
+                $timestamp = $event->timestamp;
+                $schedule  = $event->schedule;
+
+                $context['limit']['display']  = $schedules[$schedule]['display'];
+                $context['limit']['datetime'] = wp_date(
+                    get_option('date_format') . ' ' . get_option('time_format'),
+                    $timestamp
+                );
+            }
+        }
+
+        template('status.php', $context);
+    }
+
+    #[NoReturn]
+    public function doScrapNow(): void
+    {
+        check_admin_referer('akahoshi_do_scrap_now', '_akahoshi_nonce');
 
         do_action('akahoshi_scrap');
+
+        wp_redirect(wp_get_referer());
+        exit;
+    }
+
+    #[NoReturn]
+    public function doNotifyNow(): void
+    {
+        check_admin_referer('akahoshi_do_notify_now', '_akahoshi_nonce');
+
+        do_action('akahoshi_notify');
 
         wp_redirect(wp_get_referer());
         exit;
