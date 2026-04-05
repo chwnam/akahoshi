@@ -112,9 +112,14 @@ class Akahoshi
         (new Scraper())->scrap();
     }
 
-    public function notify(): void
+    /**
+     * @param bool $forced
+     *
+     * @return void
+     */
+    public function notify(bool $forced = false): void
     {
-        (new Scraper())->notifyQueued();
+        (new Scraper())->notifyQueued($forced);
     }
 
     public function limit(): void

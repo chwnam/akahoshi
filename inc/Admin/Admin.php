@@ -234,7 +234,7 @@ class Admin
     {
         check_admin_referer('akahoshi_do_notify_now', '_akahoshi_nonce');
 
-        do_action('akahoshi_notify');
+        do_action('akahoshi_notify', true);
 
         wp_redirect(wp_get_referer());
         exit;

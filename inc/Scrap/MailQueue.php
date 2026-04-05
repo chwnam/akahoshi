@@ -8,7 +8,7 @@ use Chwnam\Akahoshi\Object\ScrapTarget;
 class MailQueue
 {
     private ScrapTarget $target;
-    private string $name;
+    private string      $name;
 
     public function __construct(ScrapTarget $target)
     {
@@ -34,16 +34,26 @@ class MailQueue
         set_transient($this->name, $queued);
     }
 
-    public function send(): void
+    /**
+     * @param bool $forced  강제로 진행합니다. true 이면 '이메일 발송 시각'을 무시하고 큐에 있는 내용을 무조건 메일로 보냅니다.
+     *                      단, 큐에 내용이 없는 경우는 메일이 보내지지 않습니다.
+     *
+     * @return void
+     */
+    public function send(bool $forced): void
     {
-        $hour        = $this->target->notifyAt;
-        $currentHour = (int)wp_date('H', null, wp_timezone());
-        $queued      = get_transient($this->name);
-
-        if ( ! $this->target->enable || $currentHour !== $hour || empty($queued)) {
+        if (!$this->target->enable) {
             return;
         }
 
+        $hour        = $this->target->notifyAt;
+        $currentHour = (int)wp_date('H', null, wp_timezone());
+
+        if (!$forced && $currentHour !== $hour) {
+            return;
+        }
+
+        $queued   = get_transient($this->name) ?: [];
         $articles = [];
 
         foreach ($queued as $item) {

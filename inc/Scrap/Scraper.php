@@ -12,7 +12,7 @@ class Scraper
     public function scrap(): void
     {
         foreach ($this->getScrapTargets() as $t) {
-            if ( ! $t->enable) {
+            if (!$t->enable) {
                 return;
             }
 
@@ -29,10 +29,15 @@ class Scraper
         }
     }
 
-    public function notifyQueued(): void
+    /**
+     * @param bool $forced
+     *
+     * @return void
+     */
+    public function notifyQueued(bool $forced): void
     {
         foreach ($this->getScrapTargets() as $t) {
-            (new MailQueue($t))->send();
+            (new MailQueue($t))->send($forced);
         }
     }
 
@@ -56,7 +61,7 @@ class Scraper
     /**
      * Limit to only recent items.
      *
-     * @param Article[] $items
+     * @param Article[]   $items
      * @param ScrapTarget $target
      *
      * @return array
@@ -73,7 +78,7 @@ class Scraper
      * Target should have at least one keyword, otherwise it will return only empty array.
      * Article that matches at least one keyword can pass the filter.
      *
-     * @param Article[] $items
+     * @param Article[]   $items
      * @param ScrapTarget $target
      *
      * @return Article[]
@@ -84,7 +89,7 @@ class Scraper
     }
 
     /**
-     * @param Article[] $items
+     * @param Article[]   $items
      * @param ScrapTarget $target
      *
      * @return Article[]
@@ -95,7 +100,7 @@ class Scraper
     }
 
     /**
-     * @param Article[] $items
+     * @param Article[]   $items
      * @param ScrapTarget $target
      *
      * @return void
@@ -106,7 +111,7 @@ class Scraper
     }
 
     /**
-     * @param Article[] $items
+     * @param Article[]   $items
      * @param ScrapTarget $target
      */
     private function addToQueue(array $items, ScrapTarget $target): void
