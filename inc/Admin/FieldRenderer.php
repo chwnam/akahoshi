@@ -100,6 +100,22 @@ class FieldRenderer
         printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
     }
 
+    public static function crawling(array $args): void
+    {
+        $attrs = $args['attrs'] ?? [];
+
+        printf(
+            '<input id="%1$s" name="%2$s" type="checkbox" class="text" value="yes"%3$s/>' .
+            '<label for="%1$s">%4$s</label>',
+            esc_attr($attrs['id'] ?? ''),
+            esc_attr($attrs['name'] ?? ''),
+            ($attrs['checked'] ?? false) ? ' checked': '',
+            esc_html($args['instruction'] ?? '')
+        );
+
+        printf('<p class="description">%s</p>', esc_html($args['description'] ?? ''));
+    }
+
     public static function sectionNihongo(): void
     {
         echo '<p class="description">' .

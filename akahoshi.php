@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  아카호시
  * Plugin URI:   https://github.com/chwnam/akahoshi
- * Version:      1.2.3
+ * Version:     1.2.4
  * Description:  내 블로그를 위한 뉴스 스크랩 플러그인
  * Author:       chwnam
  * Author URI:   https://github.com/chwnam

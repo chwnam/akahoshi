@@ -438,5 +438,22 @@ class Admin
                 'description' => '스크랩된 포스트가 댓글이 달리지 않은 채로 지정된 주(週)를 넘기면 삭제됩니다. 0이면 지우지 않습니다.',
             ]
         );
+
+        add_settings_field(
+            "akahoshi-$section-crawling",
+            '기사 본문 크롤링',
+            [FR::class, 'crawling'],
+            'akahoshi',
+            "akahoshi-$section",
+            [
+                'attrs'       => [
+                    'id'      => "akahoshi-$section-crawling",
+                    'name'    => "akahoshi_settings[$section][crawling]",
+                    'checked' => $settings[$section]['crawling'] ?? false,
+                ],
+                'instruction' => '기사 본문을 스크랩합니다. (실험)',
+                'description' => '',
+            ]
+        );
     }
 }

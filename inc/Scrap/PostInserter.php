@@ -39,22 +39,37 @@ class PostInserter
                 continue;
             }
 
+            if ($target->crawling) {
+                $content     = ChosunHealthCrawler::crawl($item->link);
+                $postContent = ChosunHealthCrawler::escape($content);
+                $postContent .= PHP_EOL . '<p class="akahoshi-article-link"><a href="' . esc_url($item->link) .
+                    '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
+                    '원본 기사 확인' .
+                    '</a></p>';
+                sleep(2);
+            } else {
+                $postContent = wp_kses_post(modifyArticleContent($item->content ?: $item->description)) .
+                    PHP_EOL .
+                    '<div class="akahoshi-guid"><p class="akahoshi-article-link">' .
+                    '<a href="' . esc_url($item->link) .
+                    '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
+                    '원본 기사 보기' .
+                    '</a></div>';
+            }
+
             $p = wp_insert_post(
                 [
                     'post_author'  => $target->userId,
                     'post_date'    => convertRssDate($item->datetime),
                     'post_title'   => $item->title,
-                    'post_content' => wp_kses_post(modifyArticleContent($item->content ?: $item->description)) .
-                        PHP_EOL .
-                        '<div class="akahoshi-guid"><p>' .
-                        '<a href="' . esc_url($item->link) .
-                        '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
-                        '원본 기사 보기' .
-                        '</a></div>',
+                    'post_content' => $postContent,
                     'post_name'    => $slug,
                     'post_type'    => $target->postType,
                     'post_status'  => 'private',
-                    'meta_input'   => ['akahoshi_scrap' => '1'],
+                    'meta_input'   => [
+                        '_akahoshi_scrap' => '1',
+                        '_akahoshi_link'  => esc_url_raw($item->link),
+                    ],
                 ]
             );
 
@@ -114,7 +129,7 @@ class PostInserter
                 'post_type'        => 'post',
                 'posts_per_page'   => -1,
                 'suppress_filters' => true,
-                'meta_key'         => 'akahoshi_scrap',
+                'meta_key'         => '_akahoshi_scrap',
                 'meta_value'       => '1',
             ]
         );

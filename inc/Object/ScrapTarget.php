@@ -15,6 +15,7 @@ class ScrapTarget
     public string $notify;
     public int    $notifyAt;
     public int    $countLimit;
+    public bool   $crawling;
 
     public function __construct(array $arrayForm = [])
     {
@@ -31,5 +32,6 @@ class ScrapTarget
         $this->notify     = sanitize_email($arrayForm['notify'] ?? '');
         $this->notifyAt   = (int)($arrayForm['notify_at'] ?? '-1');
         $this->countLimit = (int)($arrayForm['count_limit'] ?? '0');
+        $this->crawling   = filter_var($arrayForm['crawling'] ?? 'no', FILTER_VALIDATE_BOOLEAN);
     }
 }

@@ -3,6 +3,7 @@
 namespace Chwnam\Akahoshi;
 
 use Chwnam\Akahoshi\Admin\Admin;
+use Chwnam\Akahoshi\Admin\Settings;
 use Chwnam\Akahoshi\Scrap\Scraper;
 
 class Akahoshi
@@ -66,40 +67,7 @@ class Akahoshi
 
     public function init(): void
     {
-        register_setting(
-            'akahoshi',
-            'akahoshi_settings',
-            [
-                'type'              => 'array',
-                'group'             => 'akahoshi_settings',
-                'sanitize_callback' => [__CLASS__, 'sanitizeSettings'],
-                'show_in_rest'      => false,
-                'default'           => [
-                    'nihongo' => [
-                        'id'          => 'nihongo',
-                        'enable'      => false,
-                        'keywords'    => '',
-                        'label'       => '',
-                        'term_id'     => 0,
-                        'user_id'     => 0,
-                        'notify'      => '',
-                        'notify_at'   => -1,
-                        'count_limit' => 0,
-                    ],
-                    'health'  => [
-                        'id'          => 'health',
-                        'enable'      => false,
-                        'keywords'    => '',
-                        'label'       => '',
-                        'term_id'     => 0,
-                        'user_id'     => 0,
-                        'notify'      => '',
-                        'notify_at'   => -1,
-                        'count_limit' => 0,
-                    ],
-                ],
-            ]
-        );
+        Settings::register();
     }
 
     public function outputHeadScripts(): void
@@ -125,33 +93,5 @@ class Akahoshi
     public function limit(): void
     {
         (new Scraper())->limitPosts();
-    }
-
-    public static function sanitizeSettings(array $value): array
-    {
-        return [
-            'nihongo' => [
-                'id'          => 'nihongo',
-                'enable'      => 'yes' === ($value['nihongo']['enable'] ?? '') ? 'yes' : 'no',
-                'label'       => '일본어',
-                'keywords'    => sanitize_text_field($value['nihongo']['keywords']),
-                'term_id'     => absint($value['nihongo']['term_id'] ?? '0'),
-                'user_id'     => absint($value['nihongo']['user_id'] ?? '0'),
-                'notify'      => sanitize_email($value['nihongo']['notify'] ?? ''),
-                'notify_at'   => intval($value['nihongo']['notify_at'] ?? -1),
-                'count_limit' => absint($value['nihongo']['count_limit'] ?? 0),
-            ],
-            'health'  => [
-                'id'          => 'health',
-                'enable'      => 'yes' === ($value['health']['enable'] ?? '') ? 'yes' : 'no',
-                'label'       => '건강',
-                'keywords'    => sanitize_text_field($value['health']['keywords']),
-                'term_id'     => absint($value['health']['term_id'] ?? '0'),
-                'user_id'     => absint($value['health']['user_id'] ?? '0'),
-                'notify'      => sanitize_email($value['health']['notify'] ?? ''),
-                'notify_at'   => intval($value['health']['notify_at'] ?? -1),
-                'count_limit' => absint($value['health']['count_limit'] ?? 0),
-            ],
-        ];
     }
 }
