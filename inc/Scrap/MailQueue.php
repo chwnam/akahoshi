@@ -28,10 +28,18 @@ class MailQueue
         }
 
         foreach ($items as $item) {
-            $queued[] = (array)$item;
+            $queued[] = $item;
         }
 
         set_transient($this->name, $queued);
+    }
+
+    /**
+     * @return Article[]
+     */
+    public function getStatus(): array
+    {
+        return get_transient($this->name) ?: [];
     }
 
     /**
@@ -57,13 +65,8 @@ class MailQueue
         $articles = [];
 
         foreach ($queued as $item) {
-            $article = new Article();
-
-            foreach ($item as $key => $value) {
-                if (property_exists($this, $key)) {
-                    $article->{$key} = $value;
-                }
-                $articles[] = $article;
+            if ($item instanceof Article) {
+                $articles[] = $item;
             }
         }
 

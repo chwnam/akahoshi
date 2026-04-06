@@ -4,7 +4,9 @@ namespace Chwnam\Akahoshi\Admin;
 
 use Chwnam\Akahoshi\Admin\FieldRenderer as FR;
 use Chwnam\Akahoshi\Scrap\LastGuidMarker;
+use Chwnam\Akahoshi\Scrap\MailQueue;
 use Chwnam\Akahoshi\Scrap\PostInserter;
+use Chwnam\Akahoshi\Scrap\Scraper;
 use JetBrains\PhpStorm\NoReturn;
 
 use function Chwnam\Akahoshi\template;
@@ -168,6 +170,7 @@ class Admin
                 'display'  => '',
                 'datetime' => '',
             ],
+            'queues' => [],
         ];
 
         if (wp_next_scheduled('akahoshi_scrap')) {
@@ -213,6 +216,13 @@ class Admin
                     $timestamp
                 );
             }
+        }
+
+        foreach (Scraper::getScrapTargets() as $target) {
+            $context['queues'][] = [
+                'target'   => $target,
+                'articles' => (new MailQueue($target))->getStatus()
+            ];
         }
 
         template('status.php', $context);

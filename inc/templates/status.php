@@ -1,12 +1,16 @@
 <?php
+
+use Chwnam\Akahoshi\Object\Article;
+use Chwnam\Akahoshi\Object\ScrapTarget;
+
 /**
  * 콘텍스트
  *
- * @var array{datetime: string, display: string} $scrap
- * @var array{datetime: string, display: string} $notify
- * @var array{datetime: string, display: string} $limit
+ * @var array{datetime: string, display: string}               $scrap
+ * @var array{datetime: string, display: string}               $notify
+ * @var array{datetime: string, display: string}               $limit
+ * @var array{array{target: ScrapTarget, articles: Article[]}} $queues
  */
-
 ?>
 <div class="wrap">
     <h1>상태 보고</h1>
@@ -44,5 +48,19 @@
                 <p class="description">시간이 지난 포스트를 소거하는 주기입니다.</p>
             </td>
         </tr>
+    </table>
+
+    <h2>메일 큐 상태</h2>
+    <table class="form-table">
+        <?php foreach ($queues as $queue): ?>
+            <tr>
+                <th scope="row">
+                    <?php echo esc_html($queue['target']->label); ?>
+                </th>
+                <td>
+                    <?php echo count($queue['articles']); ?>개 기사 대기 중.
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </div>
