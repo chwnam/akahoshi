@@ -139,6 +139,7 @@ class Scraper
                     'notify'      => $value['nihongo']['notify'] ?? '',
                     'notify_at'   => $value['nihongo']['notify_at'] ?? '-1',
                     'count_limit' => $value['nihongo']['count_limit'] ?? '0',
+                    'crawling'    => $value['nihongo']['crawling'] ?? 'no',
                 ]
             ),
             new ScrapTarget(
@@ -153,6 +154,7 @@ class Scraper
                     'notify'      => $value['health']['notify'] ?? '',
                     'notify_at'   => $value['health']['notify_at'] ?? '-1',
                     'count_limit' => $value['health']['count_limit'] ?? '0',
+                    'crawling'    => $value['health']['crawling'] ?? 'no',
                 ]
             ),
         ];
