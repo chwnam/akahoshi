@@ -5,6 +5,8 @@ namespace Chwnam\Akahoshi;
 use Chwnam\Akahoshi\Admin\Admin;
 use Chwnam\Akahoshi\Admin\Settings;
 use Chwnam\Akahoshi\Scrap\Scraper;
+use Exception;
+use WP_CLI;
 
 class Akahoshi
 {
@@ -24,6 +26,14 @@ class Akahoshi
         add_filter('jetpack_photon_skip_for_url', [$this, 'filterJetpackPhoton'], 10, 4);
 
         $this->admin = new Admin();
+
+        if (defined('WP_CLI') && WP_CLI) {
+            try {
+                WP_CLI::add_command('akahoshi', AkahoshiCLI::class);
+            } catch (Exception $e) {
+                wp_die($e->getMessage());
+            }
+        }
     }
 
     public function activation(): void

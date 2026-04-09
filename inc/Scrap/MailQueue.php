@@ -5,6 +5,10 @@ namespace Chwnam\Akahoshi\Scrap;
 use Chwnam\Akahoshi\Object\Article;
 use Chwnam\Akahoshi\Object\ScrapTarget;
 
+use WP_Query;
+
+use function Chwnam\Akahoshi\linkToSlug;
+
 class MailQueue
 {
     private ScrapTarget $target;
@@ -70,7 +74,30 @@ class MailQueue
             }
         }
 
-        $articles = array_reverse($articles);
+        // 실제 테이블에 있는 요소만 필터하여 메일 목록에 넣는다.
+        // 메일이 발송되기 전에 너무 엉터릭 같은 기사는 미리 제거되어 있을 수도 있기 때문이다.
+        $articles   = array_reverse($articles);
+        $slugs      = array_map(fn(Article $a) => linkToSlug($a->link), $articles);
+        $slugExists = [];
+        if ($this->target->termId && $slugs) {
+            $query = new WP_Query([
+                'post_type'     => 'post',
+                'post_status'   => 'private',
+                'no_found_rows' => true,
+                'nopaging'      => true,
+                'post_name__in' => $slugs,
+                'cat'           => $this->target->termId,
+            ]);
+            foreach ($query->posts as $post) {
+                $found = in_array($post->post_name, $slugs);
+                if ($found) {
+                    $slugExists[] = $post->post_name;
+                }
+            }
+        }
+        if ($slugExists) {
+            $articles = array_filter($articles, fn(Article $a) => in_array(linkToSlug($a->link), $slugExists));
+        }
 
         (new Notifier($articles, $this->target))->notify();
 

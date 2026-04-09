@@ -41,7 +41,9 @@ class PostInserter
 
             if ($target->crawling) {
                 $content     = ChosunHealthCrawler::crawl($item->link);
-                $postContent = ChosunHealthCrawler::escape($content);
+                $postContent = '<div class="akahoshi-health-scrapped">' .
+                    ChosunHealthCrawler::escape($content) .
+                    '</div>';
                 $postContent .= PHP_EOL . '<p class="akahoshi-article-link"><a href="' . esc_url($item->link) .
                     '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
                     '원본 기사 확인' .

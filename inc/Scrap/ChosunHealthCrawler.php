@@ -32,6 +32,20 @@ class ChosunHealthCrawler
             if ('page' === $node->getAttribute('id')) {
                 continue;
             }
+
+            if ('news_imgbox' === $node->getAttribute('class')) {
+                $imgElements = $node->getElementsByTagName('img');
+                if ($imgElements->count()) {
+                    $img = $imgElements->item(0);
+                    if ($img->hasAttribute('width')) {
+                        $img->removeAttribute('width');
+                    }
+                    if ($img->hasAttribute('height')) {
+                        $img->removeAttribute('height');
+                    }
+                }
+            }
+
             $output .= $node->ownerDocument->saveHTML($node) . PHP_EOL;
         }
 

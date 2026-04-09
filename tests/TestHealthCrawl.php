@@ -2,6 +2,7 @@
 
 namespace Chwnam\Akahoshi\Tests;
 
+use Dom\HTMLElement;
 use DOMDocument;
 use DOMXPath;
 use WP_UnitTestCase;
@@ -22,6 +23,19 @@ class TestHealthCrawl extends WP_UnitTestCase
         foreach ($nodes as $node) {
             if ('page' === $node->getAttribute('id')) {
                 continue;
+            }
+
+            if ('news_imgbox' === $node->getAttribute('class')) {
+                $imgElements = $node->getElementsByTagName('img');
+                if ($imgElements->count()) {
+                    $img = $imgElements->item(0);
+                    if ($img->hasAttribute('width')) {
+                        $img->removeAttribute('width');
+                    }
+                    if ($img->hasAttribute('height')) {
+                        $img->removeAttribute('height');
+                    }
+                }
             }
 
             $output .= $node->ownerDocument->saveHTML($node) . PHP_EOL;
