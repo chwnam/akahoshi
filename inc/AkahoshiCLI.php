@@ -101,4 +101,87 @@ class AkahoshiCLI
 
         WP_CLI::success('Completed!');
     }
+
+    /**
+     * 일본어 이미지 URL을 출력합니다.
+     *
+     * ## EXAMPLES
+     *
+     *    wp akahoshi get-nihongo-img-url 2732
+     *    wp akahoshi get-nihongo-img-url --all
+     *
+     * ## OPTIONS
+     *
+     * [<IDs>...]
+     * : 포스트 ID
+     *
+     * [--all]
+     * : 모든 '건강' 포스트에 대해 진행합니다.
+     *
+     * @param array $args
+     * @param array $assoc_args
+     *
+     * @return void
+     * @throws ExitException
+     *
+     * @subcommand get-nihongo-img-url
+     */
+    public function getNihongoImageUrl(array $args, array $assoc_args): void
+    {
+        $all     = $assoc_args['all'] ?? false;
+        $postIds = array_unique(array_filter(array_map('absint', $args)));
+
+        if (empty($postIds) && !$all) {
+            WP_CLI::error('Enter at least one post ID or add --all switch, please');
+        }
+
+        $target = array_filter(Scraper::getScrapTargets(), fn($t) => 'nihongo' === $t->id);
+        if (!$target) {
+            WP_CLI::error("'nihongo' target not found!");
+        }
+        $target = array_shift($target);
+
+        $q = [
+            'post_type'     => 'post',
+            'post_status'   => 'private',
+            'tax_query'     => [
+                [
+                    'taxonomy' => 'category',
+                    'field'    => 'term_id',
+                    'terms'    => $target->termId,
+                ]
+            ],
+            'no_found_rows' => true,
+            'nopaging'      => true,
+            'orderby'       => 'date',
+            'order'         => 'DESC',
+        ];
+
+        if (!$all && $postIds) {
+            $q['post__in'] = $postIds;
+        }
+
+        $fp = fopen('php://stdout', 'w');
+        if (!$fp) {
+            WP_CLI::error("Can't open php://stdout");
+        }
+
+        $query = new WP_Query($q);
+
+        fputcsv($fp, ['ID', 'Date', 'Title', 'URL'], ",", '"', "\\", "\n");
+
+        foreach ($query->posts as $post) {
+            if (preg_match('/<img src="([^" ]+)"/', $post->post_content, $matched)) {
+                $date = explode(' ', $post->post_date, 2);
+                fputcsv($fp, [
+                    $post->ID,
+                    $date[0],
+                    $post->post_title,
+                    $matched[1],
+                ], ",", '"', "\\", "\n");
+            }
+        }
+
+        fclose($fp);
+    }
 }

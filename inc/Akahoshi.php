@@ -25,6 +25,9 @@ class Akahoshi
         add_action('wp_head', [$this, 'outputHeadScripts']);
         add_filter('jetpack_photon_skip_for_url', [$this, 'filterJetpackPhoton'], 10, 4);
 
+        // 삭제 링크
+        add_filter('the_content', [$this, 'appendTrashLink']);
+
         $this->admin = new Admin();
 
         if (defined('WP_CLI') && WP_CLI) {
@@ -103,5 +106,24 @@ class Akahoshi
     public function limit(): void
     {
         (new Scraper())->limitPosts();
+    }
+
+    /**
+     * 본문에 기사 삭제 링크를 동적으로 추가한다
+     */
+    public function appendTrashLink(string $content): string
+    {
+        $id = get_the_ID();
+
+        if ($id && '1' == get_post_meta($id, '_akahoshi_scrap', true)) {
+            $url = get_delete_post_link($id);
+            if ($url) {
+                $content .= PHP_EOL .
+                    '<p class="akahoshi-delete-link"><a href="' . esc_url($url) .
+                    '" onclick="return confirm(\'정말로 삭제하시겠습니가\')">기사 삭제하기</a></p>';
+            }
+        }
+
+        return $content;
     }
 }

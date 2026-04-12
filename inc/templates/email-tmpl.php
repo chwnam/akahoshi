@@ -116,11 +116,10 @@
             <ul id="akahoshi-article-list">
                 <?php foreach ($items as $it): ?>
                     <li>
-                        <a href="<?php echo esc_url($it['url']); ?>" target="_blank" rel="external nofollow noreferrer">
+                        <a href="<?php echo esc_url($it['permalink']); ?>" target="_blank" rel="external nofollow noreferrer">
                             <?php echo esc_html($it['title']); ?>
-                        </a> <a class="akahoshi-permalink" href="<?php echo esc_url($it['permalink']); ?>"
-                                target="_blank" rel="external">
-                            &#x2B50; 블로그
+                        </a> <a class="akahoshi-permalink" href="<?php echo esc_url($it['url']); ?>"
+                                target="_blank" rel="external">&#x2B50; 기사 페이지
                         </a>
                     </li>
                 <?php endforeach; ?>
