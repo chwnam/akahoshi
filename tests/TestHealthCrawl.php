@@ -2,7 +2,6 @@
 
 namespace Chwnam\Akahoshi\Tests;
 
-use Dom\HTMLElement;
 use DOMDocument;
 use DOMXPath;
 use WP_UnitTestCase;
@@ -43,8 +42,11 @@ class TestHealthCrawl extends WP_UnitTestCase
 
         if ($output) {
             $output = html_entity_decode($output);
-            $output = preg_replace('/\x{00a0}/u', ' ', $output);
+            $output = preg_replace('/\x{200B}/u', '', $output); // Zero-width space
+            $output = preg_replace('/\x{00a0}/u', ' ', $output); // Non-breaking space
+            $output = preg_replace('/\s+<\//', '</', $output); // Non-breaking space
             $output = preg_replace('/>\s+</', '><', $output);
+            $output = preg_replace('/\s+<br>/', '<br>', $output);
         }
 
         $this->expectNotToPerformAssertions();

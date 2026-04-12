@@ -51,9 +51,11 @@ class ChosunHealthCrawler
 
         if ($output) {
             $output = html_entity_decode($output);
-            $output = preg_replace('/\x{00a0}/u', ' ', $output);
+            $output = preg_replace('/\x{200B}/u', '', $output); // Zero-width space
+            $output = preg_replace('/\x{00a0}/u', ' ', $output); // Non-breaking space
+            $output = preg_replace('/\s+<\//', '</', $output); // Non-breaking space
+            $output = preg_replace('/\s+<br>/', '<br>', $output);
             $output = preg_replace('/>\s+</', '><', $output);
-            $output = preg_replace(';\s+</;', '><', $output);
             $output = trim($output);
         }
 
@@ -67,20 +69,11 @@ class ChosunHealthCrawler
             [
                 'b'          => [],
                 'br'         => [],
-                'div'        => [
-                    'class' => true,
-                ],
+                'div'        => ['class' => true],
                 'figure'     => [],
                 'figcaption' => [],
-                'img'        => [
-                    'alt'    => true,
-                    'src'    => true,
-                    'height' => true,
-                    'width'  => true,
-                ],
-                'span'       => [
-                    'class' => true,
-                ],
+                'img'        => ['alt' => true, 'src' => true],
+                'span'       => ['class' => true],
             ]
         );
     }
