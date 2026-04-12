@@ -41,13 +41,11 @@ class PostInserter
 
             if ($target->crawling) {
                 $content     = ChosunHealthCrawler::crawl($item->link);
-                $postContent = '<div class="akahoshi-health-scrapped">' .
-                    ChosunHealthCrawler::escape($content) .
-                    '</div>';
+                $content     = ChosunHealthCrawler::escape($content);
+                $postContent = '<div class="akahoshi-health-scrapped">' . $content . '</div>';
                 $postContent .= PHP_EOL . '<p class="akahoshi-article-link"><a href="' . esc_url($item->link) .
                     '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
-                    '원본 기사 확인' .
-                    '</a></p>';
+                    '원본 기사 확인';
                 sleep(2);
             } else {
                 $postContent = wp_kses_post(modifyArticleContent($item->content ?: $item->description)) .
@@ -55,8 +53,7 @@ class PostInserter
                     '<div class="akahoshi-guid"><p class="akahoshi-article-link">' .
                     '<a href="' . esc_url($item->link) .
                     '" class="akahoshi-external-link" target="blank" rel="external nofollow noreferrer">' .
-                    '원본 기사 보기' .
-                    '</a></div>';
+                    '원본 기사 보기';
             }
 
             $p = wp_insert_post(
@@ -78,6 +75,17 @@ class PostInserter
             if (is_wp_error($p)) {
                 wp_die($p);
             }
+
+            $postContent .= PHP_EOL .
+                '<br/><a href="' . esc_url(get_delete_post_link($p)) .
+                '" onclick="return confirm(\'정말로 기사를 삭제하시겠습니까?\');">' . '기사 삭제' . '</a></p>';
+
+            wp_update_post(
+                [
+                    'ID'           => $p,
+                    'post_content' => $postContent,
+                ]
+            );
 
             if ($target->termId > 0) {
                 wp_set_object_terms($p, $target->termId, 'category');

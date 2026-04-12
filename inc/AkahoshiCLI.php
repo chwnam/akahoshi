@@ -2,7 +2,6 @@
 
 namespace Chwnam\Akahoshi;
 
-use Chwnam\Akahoshi\Object\ScrapTarget;
 use Chwnam\Akahoshi\Scrap\Scraper;
 use WP_CLI;
 use WP_CLI\ExitException;
