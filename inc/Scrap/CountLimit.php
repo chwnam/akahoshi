@@ -59,7 +59,7 @@ class CountLimit
             " INNER JOIN `$wpdb->term_relationships` tr ON tr.object_id = p.ID" .
             " INNER JOIN `$wpdb->term_taxonomy` tt ON tt.term_taxonomy_id = tr.term_taxonomy_id" .
             " INNER JOIN `$wpdb->terms` t ON t.term_id = tt.term_id" .
-            " WHERE p.post_status='publish'" .
+            " WHERE p.post_status IN ('publish', 'private')" .
             " AND p.post_type='post'" .
             " AND p.comment_count=0" .
             " AND tt.taxonomy='category'" .
