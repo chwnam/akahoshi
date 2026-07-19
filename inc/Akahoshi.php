@@ -50,7 +50,7 @@ class Akahoshi
         }
 
         if (!wp_next_scheduled('akahoshi_limit')) {
-            wp_schedule_event(getNextHour(), 'weekly', 'akahoshi_limit');
+            wp_schedule_event(getNextHour(), 'daily', 'akahoshi_limit');
         }
     }
 

@@ -46,7 +46,7 @@ class CountLimit
         }
 
         try {
-            $days     = $threshold * 7;
+            $days     = $threshold;
             $datetime = date_create('today midnight', wp_timezone())
                 ->sub(new DateInterval("P{$days}D"))
                 ->format('Y-m-d H:i:s');

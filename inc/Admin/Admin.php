@@ -435,7 +435,7 @@ class Admin
                     'name'  => "akahoshi_settings[$section][count_limit]",
                     'value' => $settings[$section]['count_limit'] ?? '0',
                 ],
-                'description' => '스크랩된 포스트가 댓글이 달리지 않은 채로 지정된 주(週)를 넘기면 삭제됩니다. 0이면 지우지 않습니다.',
+                'description' => '스크랩된 포스트가 댓글이 달리지 않은 채로 지정된 일을 넘기면 삭제됩니다. 0이면 지우지 않습니다.',
             ]
         );
 
