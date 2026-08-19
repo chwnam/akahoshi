@@ -9,8 +9,12 @@ use function Chwnam\Akahoshi\getRssUrl;
 
 class Scraper
 {
-    public function scrap(): void
+    public function scrap(bool $forced): void
     {
+        if ($forced) {
+            LastGuidMarker::destroy();
+        }
+
         foreach ($this->getScrapTargets() as $t) {
             if (!$t->enable) {
                 return;

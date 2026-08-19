@@ -88,9 +88,9 @@ class Akahoshi
         template('head-script.php');
     }
 
-    public function scrap(): void
+    public function scrap(bool $forced = false): void
     {
-        (new Scraper())->scrap();
+        (new Scraper())->scrap($forced);
     }
 
     /**

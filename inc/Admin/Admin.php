@@ -233,7 +233,7 @@ class Admin
     {
         check_admin_referer('akahoshi_do_scrap_now', '_akahoshi_nonce');
 
-        do_action('akahoshi_scrap');
+        do_action('akahoshi_scrap', true /* force: destroys the marker */);
 
         wp_redirect(wp_get_referer());
         exit;
@@ -336,7 +336,7 @@ class Admin
                     'checked' => $settings[$section]['enable'] ?? false,
                 ],
                 'label_for'   => 'akahoshi-health-enable',
-                'instruction' => '건강 기사 스크랩 활성화',
+                'instruction' => '스크랩 활성화',
             ]
         );
 
@@ -451,7 +451,7 @@ class Admin
                     'name'    => "akahoshi_settings[$section][crawling]",
                     'checked' => $settings[$section]['crawling'] ?? false,
                 ],
-                'instruction' => '기사 본문을 스크랩합니다. (실험)',
+                'instruction' => '기사 본문을 기사 URL을 통해 크롤링하여 스크랩합니다. (실험)',
                 'description' => '',
             ]
         );

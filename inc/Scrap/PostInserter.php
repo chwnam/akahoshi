@@ -107,7 +107,7 @@ class PostInserter
         $status = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT post_name, ID FROM $wpdb->posts " .
-                "WHERE post_type='post' AND post_status='publish' AND post_name IN ($ph)",
+                "WHERE post_type='post' AND post_status IN ('publish', 'private') AND post_name IN ($ph)",
                 $slugs
             ),
             OBJECT_K
